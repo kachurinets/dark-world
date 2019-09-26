@@ -1,0 +1,42 @@
+<div class="ui form">
+  <div class="three fields">
+    <div class="field">
+      <label>Название</label>
+      <input type="text" placeholder="Название">
+    </div>
+
+
+    <div class="field">
+      <label for="">Стиль</label>
+
+      <sui-select class="selection"
+                  [(ngModel)]="selectedOption"
+                  [options]="options"
+                  labelField="name"
+                  [isSearchable]="true"
+                  [isDisabled]="false"
+                  #select>
+        <sui-select-option *ngFor="let option of select.filteredOptions"
+                           [value]="option">
+        </sui-select-option>
+      </sui-select>
+
+    </div>
+    <div class="field">
+      <label for="">Страна</label>
+
+      <sui-select class="selection"
+                  [(ngModel)]="selectedCountry"
+                  [options]="contries"
+                  labelField="name"
+                  [isSearchable]="true"
+                  [isDisabled]="false"
+                  #selectContry>
+        <sui-select-option *ngFor="let contry of selectContry.filteredOptions"
+                           [value]="contry">
+        </sui-select-option>
+      </sui-select>
+
+    </div>
+  </div>
+</div>

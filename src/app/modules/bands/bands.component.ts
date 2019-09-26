@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-bands',
   templateUrl: './bands.component.html',
+  styleUrls: ['./bands.component.scss']
 })
 export class BandsComponent implements OnInit {
 
@@ -11,5 +12,5 @@ export class BandsComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  bandCards = 10;
 }

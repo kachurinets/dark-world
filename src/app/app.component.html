@@ -1,21 +1,27 @@
 
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <a routerLink="/home">
-      Home
-    </a>
-  </li>
-  <li>
-    <a routerLink="/bands">
-      Bands
-    </a>
-  </li>
-  <li>
-    <a routerLink="/albums">
-      Albums
-    </a>
-  </li>
-</ul>
+<header id="pageHeader" class="ui inverted menu">
+  <ul class="menu__wrap">
+    <li>
+      <a class="menu__item item" routerLink="/home">
+        Home
+      </a>
+    </li>
+    <li>
+      <a class="menu__item item" routerLink="/bands">
+        Bands Тест
+      </a>
+    </li>
+    <li>
+      <a class="menu__item item" routerLink="/albums">
+        Albums
+      </a>
+    </li>
+  </ul>
+</header>
+<article class="ui inverted" id="mainArticle">Article
+  <router-outlet></router-outlet>
 
-<router-outlet></router-outlet>
+</article>
+<nav class="ui inverted" id="mainNav">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam dolor ea eius illo tempora? Accusantium asperiores at aut facilis iusto molestias, nesciunt nostrum ora? Accusantium asperiores at aut facilis iusto molestias, nesciunt nostrum officia perferendis quidem quis sed, sit vero.</nav>
+<div class="ui inverted" id="siteAds">Ads</div>
+<footer class="ui inverted black" id="pageFooter">Footer</footer>

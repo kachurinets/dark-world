@@ -6,7 +6,8 @@ import { BandsComponent } from './bands.component';
 
 @NgModule({
   declarations: [
-    BandsComponent
+    BandsComponent,
+
   ],
   imports: [
     BandsRoutingModule,
