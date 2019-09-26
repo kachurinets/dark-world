@@ -38,5 +38,24 @@
       </sui-select>
 
     </div>
+    <div class="field">
+    <label for="">Сортировка</label>
+
+    <sui-select class="selection"
+                [options]="sortOptions"
+                labelField="name"
+                [isSearchable]="false"
+                [isDisabled]="false"
+                #selectSort>
+      <sui-select-option *ngFor="let itemSort of selectSort.filteredOptions"
+                         [value]="itemSort">
+      </sui-select-option>
+    </sui-select>
+
+  </div>
+    <div class="field">
+      <button class="ui black button">Поиск</button>
+
+    </div>
   </div>
 </div>

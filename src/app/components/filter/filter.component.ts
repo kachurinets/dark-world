@@ -11,6 +11,7 @@ export class FilterComponent implements OnInit, AfterViewChecked{
   contries;
   selectedOption;
   selectedCountry;
+  sortOptions;
   constructor(private cdr: ChangeDetectorRef) { }
   ngAfterViewChecked(){
     //your code to update the model
@@ -21,6 +22,7 @@ export class FilterComponent implements OnInit, AfterViewChecked{
     this.contries = [{name: 'Ukraine'}, {name: 'Moldova'}, {name: 'Russia'}];
     this.selectedOption =  this.options[0];
     this.selectedCountry = this.contries[0];
+    this.sortOptions = [{name: 'по рейтингу'}, {name: 'по просмотрам'}]
   }
 
 }

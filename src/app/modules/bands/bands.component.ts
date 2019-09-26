@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bands',
@@ -7,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BandsComponent implements OnInit {
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit() {
   }
   bandCards = 10;
+
+  navigateToPage() {
+    this.router.navigate(['/bands/band', '10']);
+  }
 }

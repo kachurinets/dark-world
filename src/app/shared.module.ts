@@ -4,12 +4,16 @@ import { CommonModule } from '@angular/common';
 import { FilterComponent } from './components/filter/filter.component';
 import { SuiModule, SuiSelectModule } from 'ng2-semantic-ui';
 import { BandCardComponent } from './components/band-card/band-card.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
+import { CommentsComponent } from './components/comments/comments.component';
 
 
 @NgModule({
   declarations: [
     FilterComponent,
-    BandCardComponent
+    BandCardComponent,
+    PaginationComponent,
+    CommentsComponent,
   ],
   imports: [
     CommonModule,
@@ -25,7 +29,9 @@ import { BandCardComponent } from './components/band-card/band-card.component';
     FilterComponent,
     SuiSelectModule,
     SuiModule,
-    BandCardComponent
+    BandCardComponent,
+    PaginationComponent,
+    CommentsComponent,
   ],
 
   providers: [

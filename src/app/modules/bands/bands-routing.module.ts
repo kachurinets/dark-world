@@ -2,6 +2,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { BandsComponent } from './bands.component';
+import { BandComponent } from './band/band.component';
 
 @NgModule({
   imports: [
@@ -9,6 +10,9 @@ import { BandsComponent } from './bands.component';
       {
         path: '', component: BandsComponent, children: [
         ]
+      },
+      {
+        path: 'band/:id', component: BandComponent
       }
     ])
   ],
