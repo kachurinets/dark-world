@@ -6,6 +6,7 @@ import { SuiModule, SuiSelectModule } from 'ng2-semantic-ui';
 import { BandCardComponent } from './components/band-card/band-card.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { CommentsComponent } from './components/comments/comments.component';
+import { NgxGalleryModule } from 'ngx-gallery';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { CommentsComponent } from './components/comments/comments.component';
     FormsModule,
     ReactiveFormsModule,
     SuiSelectModule,
-    SuiModule
+    SuiModule,
+    NgxGalleryModule
   ],
   exports: [
     CommonModule,
@@ -32,6 +34,7 @@ import { CommentsComponent } from './components/comments/comments.component';
     BandCardComponent,
     PaginationComponent,
     CommentsComponent,
+    NgxGalleryModule
   ],
 
   providers: [
