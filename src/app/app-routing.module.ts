@@ -15,6 +15,11 @@ const routes: Routes = [
     path: 'albums',
     loadChildren: './modules/albums/albums.module#AlbumsModule',
   },
+  {
+    path: 'admin',
+    loadChildren: './modules/admin/admin.module#AdminModule',
+  },
+
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];
