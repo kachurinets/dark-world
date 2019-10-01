@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SuiCheckboxModule, SuiModule, SuiSelectModule } from 'ng2-semantic-ui';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { SuiCheckboxModule, SuiModule, SuiSelectModule } from 'ng2-semantic-ui';
     AppRoutingModule,
     SuiModule,
     SuiCheckboxModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

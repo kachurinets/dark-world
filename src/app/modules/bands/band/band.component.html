@@ -176,5 +176,24 @@
 <br>
 <br>
 <br>
+<sui-tabset>
+  <div class="ui secondary menu">
+    <a class="item" suiTabHeader="1">Дискография</a>
+    <a class="item" suiTabHeader="2">Веб-сайты</a>
+    <a class="item" suiTabHeader="3">Видеография</a>
+  </div>
+  <div class="ui segment" suiTabContent="1">
+    <sui-tabset>
+      <div class="ui pointing secondary menu">
+        <a class="item" suiTabHeader="1">Nested 1</a>
+        <a class="item" suiTabHeader="2">Nested 2</a>
+      </div>
+      <div class="ui segment" suiTabContent="1">First nested tab!</div>
+      <div class="ui segment" suiTabContent="2">Second nested tab!</div>
+    </sui-tabset>
+  </div>
+  <div class="ui segment" suiTabContent="2">Second tab!</div>
+  <div class="ui segment" suiTabContent="3">Third tab!</div>
+</sui-tabset>
 <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
 <app-comments></app-comments>
