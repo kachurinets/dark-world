@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BandsService } from '../bands/bands.service';
 
 @Component({
   selector: 'app-admin',
@@ -7,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() {
+  constructor(public bandService: BandsService) {
   }
 
   ngOnInit() {
   }
-
+  addBand() {
+    this.bandService.addBand('fladjfladjflakjf', 'lfajdflajdflkjdalfkjasd ljf lfasdjfl jfklasdjfl');
+  }
 }
