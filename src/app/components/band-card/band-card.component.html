@@ -4,12 +4,13 @@
     <img src="https://web.archive.org/web/20161013094146/http://dark-world.ru/files/bands/logos/Burzum_logo.jpg">
   </div>
   <div class="content">
-    <div class="header">Burzum</div>
+    <div class="header">{{bandCard.name}}</div>
     <div class="meta">Black Metal, Ambient</div>
     <div class="description">
-      Lorem ipsum dolor sit amet,
-
+      {{bandCard.content}}}
+      <button class="ui black button" (click)="onDelete(bandCard.id)">Delete</button>
     </div>
+
     <span class="right floated">
       <i class="heart outline like icon"></i>
       17 likes

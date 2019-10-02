@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { Band } from '../../models/band.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +13,20 @@ export class BandsService {
   private bandsUpdated = new Subject();
 
   getBands() {
-      this.http.get('http://localhost:3000/api/bands')
-        .subscribe((postData: any) => {
-          this.bands = postData.bands;
+      this.http.get<{ message: string; bands: any }>(
+        'http://localhost:3000/api/bands'
+      )
+        .pipe(map((bandData) => {
+          return bandData.bands.map(band => {
+            return {
+              name: band.name,
+              content: band.content,
+              id: band._id,
+            };
+          });
+        }))
+        .subscribe((transformedBands) => {
+          this.bands = transformedBands;
           this.bandsUpdated.next([...this.bands]);
         });
   }
@@ -31,6 +44,13 @@ export class BandsService {
         this.bandsUpdated.next([...this.bands]);
       });
 
+  }
+
+  deletePost(bandId: string) {
+    this.http.delete("http://localhost:3000/api/bands/" + bandId)
+      .subscribe(() => {
+        console.log('deleted');
+      })
   }
 
 }

@@ -47,4 +47,12 @@ app.get('/api/bands', (req, res, next) => {
   });
 });
 
+app.delete("/api/bands/:id", (req, res, next) => {
+  Band.deleteOne({_id: req.params.id}).then(result => {
+    console.log(result);
+    res.status(200).json({ message: "Post deleted!" });
+  });
+
+});
+
 module.exports = app;
