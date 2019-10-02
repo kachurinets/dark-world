@@ -29,10 +29,13 @@ app.post("/api/bands", (req, res, next) => {
     name: req.body.name,
     content: req.body.content
   });
-  band.save();
-  res.status(201).json({
-    message: 'Post added successfully'
+  band.save().then( createdBand => {
+    res.status(201).json({
+      message: 'Post added successfully',
+      postId: createdBand._id
+    });
   });
+
   next();
 });
 

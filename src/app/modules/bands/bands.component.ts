@@ -27,8 +27,11 @@ export class BandsComponent implements OnInit, OnDestroy {
 
   bandCards = 10;
 
-  navigateToPage() {
-    this.router.navigate(['/bands/band', '10']);
+  navigateToPage(event) {
+    console.log(event);
+    if (event.target.localName !== "button") {
+      this.router.navigate(['/bands/band', '10']);
+    }
   }
   ngOnDestroy(): void {
     this.bandsSub.unsubscribe();

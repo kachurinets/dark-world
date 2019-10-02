@@ -40,6 +40,7 @@ export class BandsService {
     this.http.post('http://localhost:3000/api/bands', band)
       .subscribe((resp: any) => {
         console.log(resp.message);
+        band.id = resp.postId;
         this.bands.push(band);
         this.bandsUpdated.next([...this.bands]);
       });
@@ -49,8 +50,9 @@ export class BandsService {
   deletePost(bandId: string) {
     this.http.delete("http://localhost:3000/api/bands/" + bandId)
       .subscribe(() => {
-        console.log('deleted');
-      })
+        this.bands = this.bands.filter(band => band.id !== bandId);
+        this.bandsUpdated.next([...this.bands]);
+      });
   }
 
 }
