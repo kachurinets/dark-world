@@ -1,16 +1,29 @@
 .menu {
   border-radius: 0;
   height: 100%;
-  li {
-    height: 100%;
-  }
-  &__wrap {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-  }
 
-  &__item {
-    height: 100%;
+}
+
+.sidebar {
+  background-color: rgba(0,0,0,.8);
+}
+.logo {
+  padding: 20px;
+}
+.menu-list {
+
+  display: flex;
+  flex-direction: column;
+  li {
+    padding: 10px 20px;
+  }
+  li:hover {
+    a {
+      color: white;
+    }
+  }
+  a {
+    font-size: 14px;
+    color: #b3b3b3;
   }
 }

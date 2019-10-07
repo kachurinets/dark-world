@@ -1,9 +1,10 @@
 .container {
   display: grid;
-  grid-template-column: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 50px 50px 1fr;
-  grid-row-gap: 30px;
-  grid-column-gap: 30px;
+  grid-gap: 30px;
+  padding: 30px;
+
 }
 
 .title {

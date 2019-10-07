@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SuiCheckboxModule, SuiModule, SuiSelectModule } from 'ng2-semantic-ui';
+import { SuiCheckboxModule, SuiModule } from 'ng2-semantic-ui';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({

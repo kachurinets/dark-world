@@ -9,6 +9,7 @@
     <div class="description">
       {{bandCard.content}}}
       <button class="ui black button" (click)="onDelete(bandCard.id)">Delete</button>
+      <a class="ui black button" routerLink="['admin/edit', bandCard.id]">Edit</a>
     </div>
 
     <span class="right floated">

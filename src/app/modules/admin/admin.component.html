@@ -1,2 +1,6 @@
-<div>this is admin page</div>
-<button (click)="addBand()">Add Band</button>
+<form [formGroup]="form" (ngSubmit)="addBand()">
+  <input type="text" formControlName="name"/>
+  <input type="text" formControlName="content"/>
+  <button type="submit">Сохранить</button>
+</form>
+

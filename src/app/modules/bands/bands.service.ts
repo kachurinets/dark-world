@@ -55,4 +55,7 @@ export class BandsService {
       });
   }
 
+  getBand(id: string) {
+    return {...this.bands.find(el => el.id === id)};
+  }
 }

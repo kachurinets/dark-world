@@ -7,8 +7,10 @@ import { AdminComponent } from './admin.component';
   imports: [
     RouterModule.forChild([
       {
-        path: '', component: AdminComponent, children: [
-        ]
+        path: 'create', component: AdminComponent,
+      },
+      {
+        path: 'edit/:bandId', component: AdminComponent,
       }
     ])
   ],

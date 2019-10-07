@@ -1,17 +1,19 @@
 body {
   font-family: 'Open Sans', sans-serif;
+  background-image: linear-gradient(to right bottom, rgb(39, 37, 39), rgb(0, 0, 0)), linear-gradient(transparent, rgb(0, 0, 0) 70%);
+  color: #fff;
+  width: 100%;
 }
 
 app-root {
   display: grid;
+
   grid-template-areas:
-    "header header header"
-    "nav article ads"
-    "footer footer footer";
-  grid-template-rows: 60px 1fr 70px;
-  grid-template-columns: 1fr 4fr 1fr;
+    "nav article"
+    "footer footer ";
+  grid-template-rows: 1fr 70px;
+  grid-template-columns: 1fr 5fr;
   grid-row-gap: 10px;
-  grid-column-gap: 10px;
   height: 100vh;
   margin: 0;
 }
@@ -29,6 +31,10 @@ app-root {
   }
 }
 
+.ui.form .fields {
+  margin: 0;
+}
+
 #pageHeader {
   grid-area: header;
 }
@@ -37,9 +43,12 @@ app-root {
 }
 #mainArticle {
   grid-area: article;
+  overflow-y: scroll;
+
 }
 #mainNav {
   grid-area: nav;
+
 }
 #siteAds {
   grid-area: ads;
