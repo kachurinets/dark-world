@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BandsService } from './bands.service';
 import { Subscription } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+
+import { BandsService } from './bands.service';
+
 
 @Component({
   selector: 'app-bands',
@@ -11,14 +14,21 @@ import { Subscription } from 'rxjs';
 export class BandsComponent implements OnInit, OnDestroy {
   bands;
   private bandsSub: Subscription;
+  bandsJSON;
+  iteration = 0;
 
   constructor(
     private router: Router,
-    public bandsService: BandsService) {
+    public bandsService: BandsService,
+    public http: HttpClient) {
   }
 
   ngOnInit() {
     this.bandsService.getBands();
+    this.http.get('assets/allBandInfo.json').subscribe(data => {
+      this.bandsJSON = data;
+    });
+
     this.bandsSub = this.bandsService.getBandUpdateListener()
       .subscribe((bands) => {
         this.bands = bands;

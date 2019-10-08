@@ -7,9 +7,9 @@
     <div class="header">{{bandCard.name}}</div>
     <div class="meta">Black Metal, Ambient</div>
     <div class="description">
-      {{bandCard.content}}}
+      {{bandCard.content}}
       <button class="ui black button" (click)="onDelete(bandCard.id)">Delete</button>
-      <a class="ui black button" routerLink="['admin/edit', bandCard.id]">Edit</a>
+      <button class="ui black button" (click)="onEdit(bandCard.id)">Edit</button>
     </div>
 
     <span class="right floated">

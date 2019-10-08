@@ -1,12 +1,13 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FilterComponent } from './components/filter/filter.component';
 import { SuiModule, SuiSelectModule } from 'ng2-semantic-ui';
-import { BandCardComponent } from './components/band-card/band-card.component';
-import { PaginationComponent } from './components/pagination/pagination.component';
-import { CommentsComponent } from './components/comments/comments.component';
 import { NgxGalleryModule } from 'ngx-gallery';
+
+import { BandCardComponent } from './components/band-card/band-card.component';
+import { CommentsComponent } from './components/comments/comments.component';
+import { FilterComponent } from './components/filter/filter.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 
 @NgModule({
@@ -36,9 +37,7 @@ import { NgxGalleryModule } from 'ngx-gallery';
     CommentsComponent,
     NgxGalleryModule
   ],
-
   providers: [
-
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

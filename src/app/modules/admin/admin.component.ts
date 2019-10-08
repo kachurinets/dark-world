@@ -29,20 +29,29 @@ export class AdminComponent implements OnInit {
         this.mode = 'edit';
         this.bandId = paramMap.get('bandId');
         this.band = this.bandService.getBand(this.bandId);
+        this.form = this.formBuilder.group({
+          name: this.band.name,
+          content: this.band.content,
+        });
       } else {
         this.mode = 'create';
         this.bandId = null;
+        this.form = this.formBuilder.group({
+          name: '',
+          content: '',
+        });
       }
     });
 
-    this.form = this.formBuilder.group({
-      email: '',
-      password: '',
-      confirmPassword: ''
-    });
+
   }
 
   addBand() {
-    this.bandService.addBand('fladjfladjflakjf', 'lfajdflajdflkjdalfkjasd ljf lfasdjfl jfklasdjfl');
+    if (this.mode === 'create') {
+      this.bandService.addBand(this.form.get('name').value, this.form.get('content').value);
+    } else {
+      this.bandService.updateBand(this.bandId, this.form.get('name').value, this.form.get('content').value);
+    }
+
   }
 }

@@ -11,7 +11,7 @@ const app = express();
 
 const phantom = require('phantom');
 
-(async function() {
+/*(async function() {
   const instance = await phantom.create();
   const page = await instance.createPage();
   await page.on('onResourceRequested', function(requestData) {
@@ -75,7 +75,7 @@ const phantom = require('phantom');
 
 
   await instance.exit();
-})();
+})();*/
 
 mongoose.connect("mongodb+srv://Dima:xj5vRWkqL2obNQqY@cluster0-yezzc.mongodb.net/node-angular?retryWrites=true&w=majority", {
   useUnifiedTopology: true,
@@ -94,7 +94,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, PUT, OPTIONS");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS");
   next();
 });
 
@@ -108,6 +108,18 @@ app.post("/api/bands", (req, res, next) => {
       message: 'Post added successfully',
       bandId: createdBand._id
     });
+  });
+});
+
+app.put("/api/bands/:id", (req, res, next) => {
+  const band = new Band({
+    _id: req.body.id,
+    name: req.body.name,
+    content: req.body.content
+  });
+  Band.updateOne({_id: req.params.id}, band ).then(result => {
+    console.log(result);
+    res.status(200).json({message: "Update succesfful"});
   });
 });
 

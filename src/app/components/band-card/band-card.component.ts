@@ -1,5 +1,6 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { BandsService } from '../../modules/bands/bands.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-band-card',
@@ -9,7 +10,9 @@ import { BandsService } from '../../modules/bands/bands.service';
 export class BandCardComponent implements OnInit{
   @Input() bandCard;
 
-  constructor(private bandsService: BandsService) {
+  constructor(
+    private bandsService: BandsService,
+    private router: Router,) {
 
   }
   ngOnInit(): void {
@@ -18,5 +21,9 @@ export class BandCardComponent implements OnInit{
 
   onDelete(bandId: string) {
     this.bandsService.deletePost(bandId);
+  }
+
+  onEdit(bandId: string) {
+    this.router.navigate(['/admin/edit', bandId]);
   }
 }

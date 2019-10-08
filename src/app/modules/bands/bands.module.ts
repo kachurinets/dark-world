@@ -1,6 +1,6 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 
-import { BandsRoutingModule } from "./bands-routing.module";
+import { BandsRoutingModule } from './bands-routing.module';
 import { SharedModule } from '../../shared.module';
 import { BandsComponent } from './bands.component';
 import { BandComponent } from './band/band.component';

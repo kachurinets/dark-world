@@ -58,4 +58,16 @@ export class BandsService {
   getBand(id: string) {
     return {...this.bands.find(el => el.id === id)};
   }
+
+  updateBand(id: string, name: string, content: string) {
+    const band: Band = { id: id, name: name, content: content };
+    this.http.put('http://localhost:3000/api/bands/' + id, band)
+      .subscribe(response => {
+        const updatedBands = [...this.bands];
+        const oldBandIndex = updatedBands.findIndex(b => b.id === band.id);
+        updatedBands[oldBandIndex] = band;
+        this.bands = updatedBands;
+        this.bandsUpdated.next([...this.bands]);
+      });
+  }
 }
