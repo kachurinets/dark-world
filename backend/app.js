@@ -3,9 +3,10 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const fs = require('fs');
 
-const Band = require('./models/band');
+
 const cheerio = require('cheerio');
 
+const bandsRoutes = require('./routes/bands');
 
 const app = express();
 
@@ -98,48 +99,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post("/api/bands", (req, res, next) => {
-  const band = new Band({
-    name: req.body.name,
-    content: req.body.content
-  });
-  band.save().then( createdBand => {
-    res.status(201).json({
-      message: 'Post added successfully',
-      bandId: createdBand._id
-    });
-  });
-});
-
-app.put("/api/bands/:id", (req, res, next) => {
-  const band = new Band({
-    _id: req.body.id,
-    name: req.body.name,
-    content: req.body.content
-  });
-  Band.updateOne({_id: req.params.id}, band ).then(result => {
-    console.log(result);
-    res.status(200).json({message: "Update succesfful"});
-  });
-});
-
-
-app.get('/api/bands', (req, res, next) => {
-  Band.find().
-    then(documents => {
-    res.status(200).json({
-      message: 'Posts fetched succesfully!',
-      bands: documents
-    });
-  });
-});
-
-app.delete("/api/bands/:id", (req, res, next) => {
-  Band.deleteOne({_id: req.params.id}).then(result => {
-    console.log(result);
-    res.status(200).json({ message: "Post deleted!" });
-  });
-
-});
+app.use("/api/bands", bandsRoutes);
 
 module.exports = app;

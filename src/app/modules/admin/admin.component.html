@@ -1,6 +1,10 @@
-<form [formGroup]="form" (ngSubmit)="addBand()">
-  <input type="text" formControlName="name"/>
-  <input type="text" formControlName="content"/>
-  <button type="submit">Сохранить</button>
-</form>
-
+<div *ngIf="!isLoading">
+  <form *ngIf="band || mode === 'create'" [formGroup]="form" (ngSubmit)="addBand()">
+    <input type="text" formControlName="name"/>
+    <input type="text" formControlName="content"/>
+    <button type="submit">Сохранить</button>
+  </form>
+</div>
+<div *ngIf="isLoading" class="ui active centered inline loader ">
+</div>
+<!-- todo: refactor *ngIf, use else-->

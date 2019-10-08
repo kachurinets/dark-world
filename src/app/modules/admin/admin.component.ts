@@ -16,6 +16,7 @@ export class AdminComponent implements OnInit {
   private mode = 'create';
   private bandId: string;
   private band: Band;
+  public isLoading = false;
 
   constructor(
     public bandService: BandsService,
@@ -28,11 +29,21 @@ export class AdminComponent implements OnInit {
       if (paramMap.has('bandId')) {
         this.mode = 'edit';
         this.bandId = paramMap.get('bandId');
-        this.band = this.bandService.getBand(this.bandId);
-        this.form = this.formBuilder.group({
-          name: this.band.name,
-          content: this.band.content,
-        });
+        this.isLoading  = true;
+        this.bandService.getBand(this.bandId)
+          .subscribe(bandData => {
+            this.isLoading = false;
+            this.band = {
+              id: bandData._id,
+              name: bandData.name,
+              content: bandData.content,
+            };
+            this.form = this.formBuilder.group({
+              name: this.band.name,
+              content: this.band.content,
+            });
+          });
+
       } else {
         this.mode = 'create';
         this.bandId = null;
@@ -42,11 +53,11 @@ export class AdminComponent implements OnInit {
         });
       }
     });
-
-
   }
 
+  //todo: change name method and refactor forms
   addBand() {
+    this.isLoading = true;
     if (this.mode === 'create') {
       this.bandService.addBand(this.form.get('name').value, this.form.get('content').value);
     } else {

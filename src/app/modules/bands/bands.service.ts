@@ -3,12 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Band } from '../../models/band.model';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BandsService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router) {}
   private bands: any = [];
   private bandsUpdated = new Subject();
 
@@ -43,6 +46,7 @@ export class BandsService {
         band.id = resp.postId;
         this.bands.push(band);
         this.bandsUpdated.next([...this.bands]);
+        this.router.navigate(['/']);
       });
 
   }
@@ -56,7 +60,7 @@ export class BandsService {
   }
 
   getBand(id: string) {
-    return {...this.bands.find(el => el.id === id)};
+    return this.http.get<{_id: string; name: string; content: string}>('http://localhost:3000/api/bands/' + id);
   }
 
   updateBand(id: string, name: string, content: string) {
@@ -68,6 +72,7 @@ export class BandsService {
         updatedBands[oldBandIndex] = band;
         this.bands = updatedBands;
         this.bandsUpdated.next([...this.bands]);
+        this.router.navigate(['/']);
       });
   }
 }

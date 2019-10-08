@@ -15,7 +15,7 @@ export class BandsComponent implements OnInit, OnDestroy {
   bands;
   private bandsSub: Subscription;
   bandsJSON;
-  iteration = 0;
+  isLoading = false;
 
   constructor(
     private router: Router,
@@ -24,8 +24,10 @@ export class BandsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.isLoading = true;
     this.bandsService.getBands();
     this.http.get('assets/allBandInfo.json').subscribe(data => {
+      this.isLoading = false;
       this.bandsJSON = data;
     });
 
