@@ -16,7 +16,6 @@ export class BandCardComponent implements OnInit{
 
   }
   ngOnInit(): void {
-    console.log(this.bandCard, 'btnCard');
   }
 
   onDelete(bandId: string) {

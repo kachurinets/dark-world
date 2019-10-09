@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { BandsService } from '../bands/bands.service';
 import { Band } from '../../models/band.model';
@@ -25,6 +25,12 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.form = new FormGroup({
+      'name': new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(3)]
+      }),
+      content: new FormControl(null, {validators: [Validators.required]})
+    });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('bandId')) {
         this.mode = 'edit';
@@ -38,19 +44,14 @@ export class AdminComponent implements OnInit {
               name: bandData.name,
               content: bandData.content,
             };
-            this.form = this.formBuilder.group({
-              name: this.band.name,
-              content: this.band.content,
+            this.form.setValue({
+              'name': this.band.name,
+              'content': this.band.content
             });
           });
-
       } else {
         this.mode = 'create';
         this.bandId = null;
-        this.form = this.formBuilder.group({
-          name: '',
-          content: '',
-        });
       }
     });
   }
@@ -59,10 +60,10 @@ export class AdminComponent implements OnInit {
   addBand() {
     this.isLoading = true;
     if (this.mode === 'create') {
-      this.bandService.addBand(this.form.get('name').value, this.form.get('content').value);
+      this.bandService.addBand(this.form.value.name, this.form.value.content);
     } else {
-      this.bandService.updateBand(this.bandId, this.form.get('name').value, this.form.get('content').value);
+      this.bandService.updateBand(this.bandId, this.form.value.name, this.form.value.name);
     }
-
+    this.form.reset();
   }
 }

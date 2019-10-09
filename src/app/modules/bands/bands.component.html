@@ -1,11 +1,12 @@
 <div *ngIf="isLoading" class="ui active centered inline loader ">
 </div>
-<div class="container" *ngIf="bands.length > 0 && !isLoading">
+<div class="container" *ngIf="!isLoading">
   <div class="title">This is Bands page</div>
   <app-filter class="filter"></app-filter>
   <app-band-card [bandCard]="band" *ngFor="let band of bands" (click)="navigateToPage($event)"
                  class="band-card"></app-band-card>
-  <app-pagination></app-pagination>
+
 
 </div>
 
+<!--  <app-pagination></app-pagination>-->
