@@ -9,9 +9,12 @@
       <label>Еекст</label>
       <input formControlName="content" type="text" name="content" placeholder="content">
     </div>
+    <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
+      <img [src]="imagePreview" [alt]="form.value.name">
+    </div>
     <div class="field">
       <button class="ui button" (click)="filePicker.click()">Pick image</button>
-      <input type="file" #filePicker>
+      <input type="file" #filePicker (change)="onImagePicked($event)">
     </div>
     <button class="ui button" type="submit" (click)="addBand()">Сохранить</button>
   </form>

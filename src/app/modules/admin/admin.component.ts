@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 import { BandsService } from '../bands/bands.service';
 import { Band } from '../../models/band.model';
+import { mimeType } from './mime-type.validator';
 
 @Component({
   selector: 'app-admin',
@@ -17,20 +18,25 @@ export class AdminComponent implements OnInit {
   private bandId: string;
   private band: Band;
   public isLoading = false;
+  public imagePreview: string | ArrayBuffer;
 
   constructor(
     public bandService: BandsService,
-    public route: ActivatedRoute,
-    private formBuilder: FormBuilder) {
+    public route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.form = new FormGroup({
-      'name': new FormControl(null, {
+      name: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
       }),
-      content: new FormControl(null, {validators: [Validators.required]})
+      content: new FormControl(null, {validators: [Validators.required]}),
+      image: new FormControl(null, {
+        validators: [Validators.required],
+        asyncValidators:  [mimeType]
+      })
     });
+
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('bandId')) {
         this.mode = 'edit';
@@ -65,5 +71,16 @@ export class AdminComponent implements OnInit {
       this.bandService.updateBand(this.bandId, this.form.value.name, this.form.value.name);
     }
     this.form.reset();
+  }
+
+  onImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({image: file});
+    this.form.get('image').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    };
+    reader.readAsDataURL(file);
   }
 }
