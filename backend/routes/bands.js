@@ -25,15 +25,20 @@ const storage = multer.diskStorage({
   }
 });
 
-router.post("", multer(storage).single("image"), (req, res, next) => {
+router.post("", multer({storage: storage}).single("image"), (req, res, next) => {
+  const url = req.protocol + '://' + req.get("host");
   const band = new Band({
     name: req.body.name,
-    content: req.body.content
+    content: req.body.content,
+    imagePath: url + "/images/" + req.file.filename
   });
   band.save().then( createdBand => {
     res.status(201).json({
       message: 'Post added successfully',
-      bandId: createdBand._id
+      post: {
+        ...createdBand,
+        id: createdBand._id
+      }
     });
   });
 });

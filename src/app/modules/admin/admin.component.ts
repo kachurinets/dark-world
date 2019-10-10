@@ -49,6 +49,7 @@ export class AdminComponent implements OnInit {
               id: bandData._id,
               name: bandData.name,
               content: bandData.content,
+              imagePath: null
             };
             this.form.setValue({
               'name': this.band.name,
@@ -62,11 +63,14 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  //todo: change name method and refactor forms
+  // todo: change name method and refactor forms
   addBand() {
+    if (this.form.invalid) {
+      return;
+    }
     this.isLoading = true;
     if (this.mode === 'create') {
-      this.bandService.addBand(this.form.value.name, this.form.value.content);
+      this.bandService.addBand(this.form.value.name, this.form.value.content, this.form.value.image);
     } else {
       this.bandService.updateBand(this.bandId, this.form.value.name, this.form.value.name);
     }

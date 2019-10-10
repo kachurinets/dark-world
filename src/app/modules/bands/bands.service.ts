@@ -25,6 +25,7 @@ export class BandsService {
               name: band.name,
               content: band.content,
               id: band._id,
+              imagePath: band.imagePath
             };
           });
         }))
@@ -38,12 +39,20 @@ export class BandsService {
     return this.bandsUpdated.asObservable();
   }
 
-  addBand(name: string, content: string) {
-    const band = { id: null, name: name, content: content };
-    this.http.post('http://localhost:3000/api/bands', band)
+  addBand(name: string, content: string, image: File) {
+    const bandData = new FormData();
+    bandData.append('name', name);
+    bandData.append("content", content);
+    bandData.append("image", image, name );
+
+    this.http.post('http://localhost:3000/api/bands', bandData)
       .subscribe((resp: any) => {
-        console.log(resp.message);
-        band.id = resp.postId;
+        const band: Band = {
+          id: resp.band.id,
+          name: name,
+          content: content,
+          imagePath: resp.band.imagePath
+        };
         this.bands.push(band);
         this.bandsUpdated.next([...this.bands]);
         this.router.navigate(['/']);
@@ -64,7 +73,7 @@ export class BandsService {
   }
 
   updateBand(id: string, name: string, content: string) {
-    const band: Band = { id: id, name: name, content: content };
+    const band: Band = { id: id, name: name, content: content, imagePath: null };
     this.http.put('http://localhost:3000/api/bands/' + id, band)
       .subscribe(response => {
         const updatedBands = [...this.bands];
