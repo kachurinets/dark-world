@@ -35,7 +35,7 @@ router.post("", multer({storage: storage}).single("image"), (req, res, next) => 
   band.save().then( createdBand => {
     res.status(201).json({
       message: 'Post added successfully',
-      post: {
+      band: {
         ...createdBand,
         id: createdBand._id
       }
@@ -43,11 +43,18 @@ router.post("", multer({storage: storage}).single("image"), (req, res, next) => 
   });
 });
 
-router.put("/:id", (req, res, next) => {
+router.put("/:id", multer({storage: storage}).single("image"), (req, res, next) => {
+  console.log(req.file);
+  let imagePath = req.body.imagePath;
+  if (req.file) {
+    const url = req.protocol + '://' + req.get("host");
+    imagePath = url + "/images/" + req.file.filename
+  }
   const band = new Band({
     _id: req.body.id,
     name: req.body.name,
-    content: req.body.content
+    content: req.body.content,
+    imagePath: imagePath
   });
   Band.updateOne({_id: req.params.id}, band ).then(result => {
     console.log(result);

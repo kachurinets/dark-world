@@ -69,15 +69,35 @@ export class BandsService {
   }
 
   getBand(id: string) {
-    return this.http.get<{_id: string; name: string; content: string}>('http://localhost:3000/api/bands/' + id);
+    return this.http.get<{_id: string; name: string; content: string, imagePath: string}>('http://localhost:3000/api/bands/' + id);
   }
 
-  updateBand(id: string, name: string, content: string) {
-    const band: Band = { id: id, name: name, content: content, imagePath: null };
-    this.http.put('http://localhost:3000/api/bands/' + id, band)
+  updateBand(id: string, name: string, content: string, image: File | string) {
+    let bandData: Band | FormData;
+    if (typeof (image) === 'object') {
+      bandData = new FormData();
+      bandData.append("id", id);
+      bandData.append('name', name);
+      bandData.append('content', content);
+      bandData.append('image', image, name);
+    } else {
+      bandData = {
+        id: id,
+        name: name,
+        content: content,
+        imagePath: image
+      };
+    }
+    this.http.put('http://localhost:3000/api/bands/' + id, bandData)
       .subscribe(response => {
         const updatedBands = [...this.bands];
-        const oldBandIndex = updatedBands.findIndex(b => b.id === band.id);
+        const oldBandIndex = updatedBands.findIndex(b => b.id === id);
+        const band: Band = {
+          id: id,
+          name: name,
+          content: content,
+          imagePath: ''
+        };
         updatedBands[oldBandIndex] = band;
         this.bands = updatedBands;
         this.bandsUpdated.next([...this.bands]);
