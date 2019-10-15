@@ -4,11 +4,8 @@
       <label>Название</label>
       <input type="text" placeholder="Название">
     </div>
-
-
     <div class="field">
       <label for="">Стиль</label>
-
       <sui-select class="selection"
                   [(ngModel)]="selectedOption"
                   [options]="options"
@@ -20,11 +17,9 @@
                            [value]="option">
         </sui-select-option>
       </sui-select>
-
     </div>
     <div class="field">
       <label for="">Страна</label>
-
       <sui-select class="selection"
                   [(ngModel)]="selectedCountry"
                   [options]="contries"
@@ -36,11 +31,9 @@
                            [value]="contry">
         </sui-select-option>
       </sui-select>
-
     </div>
     <div class="field">
     <label for="">Сортировка</label>
-
     <sui-select class="selection"
                 [options]="sortOptions"
                 labelField="name"
@@ -51,11 +44,9 @@
                          [value]="itemSort">
       </sui-select-option>
     </sui-select>
-
   </div>
     <div class="field">
       <button class="ui black button">Поиск</button>
-
     </div>
   </div>
 </div>

@@ -1,24 +1,50 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from 'ngx-gallery';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { BandsService } from '../bands.service';
+import { Band } from '../../../models/band.model';
 
 @Component({
   selector: 'app-band',
   templateUrl: './band.component.html',
   styleUrls: ['./band.component.scss']
 })
-export class BandComponent implements OnInit {
-  constructor() {
+export class BandComponent implements OnInit, OnDestroy {
+  constructor(
+    private route: ActivatedRoute,
+    private bandsService: BandsService) {
   }
   bandCards = 10;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
+  private routeSub: Subscription;
+  band: Band;
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.routeSub = this.route.params.subscribe(params => {
+      console.log(params);
+      console.log(params['id']);
+      this.bandsService.getBand(params['id']).subscribe(resp => {
+        this.band = {
+          id: resp._id,
+          name: resp.name,
+          info: resp.info,
+          imagePath: resp.imagePath,
+          genre: resp.genre,
+          existence: resp.existence,
+          country: resp.country,
+          users: resp.users,
+          albums: resp.albums,
+        };
+        console.log(this.band, 'band');
+      });
+    });
 
     this.galleryOptions = [
-        { "image": false, "height": "100px" },
-        { "breakpoint": 500, "width": "100%" }
-      ];
+      { "image": false, "height": "100px" },
+      { "breakpoint": 500, "width": "100%" }
+    ];
 
     this.galleryImages = [
       {
@@ -38,4 +64,9 @@ export class BandComponent implements OnInit {
       },
     ];
   }
+
+  ngOnDestroy() {
+    this.routeSub.unsubscribe();
+  }
+
 }

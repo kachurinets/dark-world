@@ -14,7 +14,6 @@ import { BandsService } from './bands.service';
 export class BandsComponent implements OnInit, OnDestroy {
   bands;
   private bandsSub: Subscription;
-  bandsJSON;
   isLoading = false;
 
   constructor(
@@ -26,23 +25,19 @@ export class BandsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoading = true;
     this.bandsService.getBands();
-    this.http.get('assets/allBandInfo.json').subscribe(data => {
-      this.isLoading = false;
-      this.bandsJSON = data;
-    });
-
     this.bandsSub = this.bandsService.getBandUpdateListener()
       .subscribe((bands) => {
         this.bands = bands;
+        this.isLoading = false;
       });
   }
 
   bandCards = 10;
 
-  navigateToPage(event) {
+  navigateToPage(event, id) {
     console.log(event);
     if (event.target.localName !== "button") {
-      this.router.navigate(['/bands/band', '10']);
+      this.router.navigate(['/bands/band', id]);
     }
   }
   ngOnDestroy(): void {

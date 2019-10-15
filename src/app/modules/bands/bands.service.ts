@@ -23,7 +23,7 @@ export class BandsService {
           return bandData.bands.map(band => {
             return {
               name: band.name,
-              content: band.content,
+              info: band.info,
               id: band._id,
               imagePath: band.imagePath
             };
@@ -39,10 +39,10 @@ export class BandsService {
     return this.bandsUpdated.asObservable();
   }
 
-  addBand(name: string, content: string, image: File) {
+  addBand(name: string, info: string, image: File) {
     const bandData = new FormData();
     bandData.append('name', name);
-    bandData.append("content", content);
+    bandData.append("info", info);
     bandData.append("image", image, name );
 
     this.http.post('http://localhost:3000/api/bands', bandData)
@@ -50,7 +50,7 @@ export class BandsService {
         const band: Band = {
           id: resp.band.id,
           name: name,
-          content: content,
+          info: info,
           imagePath: resp.band.imagePath
         };
         this.bands.push(band);
@@ -69,22 +69,22 @@ export class BandsService {
   }
 
   getBand(id: string) {
-    return this.http.get<{_id: string; name: string; content: string, imagePath: string}>('http://localhost:3000/api/bands/' + id);
+    return this.http.get<any>('http://localhost:3000/api/bands/' + id);
   }
 
-  updateBand(id: string, name: string, content: string, image: File | string) {
+  updateBand(id: string, name: string, info: string, image: File | string) {
     let bandData: Band | FormData;
     if (typeof (image) === 'object') {
       bandData = new FormData();
       bandData.append("id", id);
       bandData.append('name', name);
-      bandData.append('content', content);
+      bandData.append('info', info);
       bandData.append('image', image, name);
     } else {
       bandData = {
         id: id,
         name: name,
-        content: content,
+        info: info,
         imagePath: image
       };
     }
@@ -95,7 +95,7 @@ export class BandsService {
         const band: Band = {
           id: id,
           name: name,
-          content: content,
+          info: info,
           imagePath: ''
         };
         updatedBands[oldBandIndex] = band;

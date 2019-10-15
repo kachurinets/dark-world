@@ -30,7 +30,7 @@ export class AdminComponent implements OnInit {
       name: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
       }),
-      content: new FormControl(null, {validators: [Validators.required]}),
+      info: new FormControl(null, {validators: [Validators.required]}),
       image: new FormControl(null, {
         validators: [Validators.required],
         asyncValidators:  [mimeType]
@@ -48,12 +48,12 @@ export class AdminComponent implements OnInit {
             this.band = {
               id: bandData._id,
               name: bandData.name,
-              content: bandData.content,
+              info: bandData.info,
               imagePath: bandData.imagePath
             };
             this.form.setValue({
               'name': this.band.name,
-              'content': this.band.content,
+              'info': this.band.info,
               'image': this.band.imagePath
             });
           });
@@ -71,7 +71,7 @@ export class AdminComponent implements OnInit {
     }
     this.isLoading = true;
     if (this.mode === 'create') {
-      this.bandService.addBand(this.form.value.name, this.form.value.content, this.form.value.image);
+      this.bandService.addBand(this.form.value.name, this.form.value.info, this.form.value.image);
     } else {
       this.bandService.updateBand(this.bandId, this.form.value.name, this.form.value.name, this.form.value.image);
     }

@@ -1,5 +1,4 @@
 <div class="ui card">
-
   <div class="image">
     <img [src]="bandCard.imagePath" [alt]="bandCard.name">
   </div>
@@ -7,11 +6,10 @@
     <div class="header">{{bandCard.name}}</div>
     <div class="meta">Black Metal, Ambient</div>
     <div class="description">
-      {{bandCard.content}}
+      {{bandCard.genre}}
       <button class="ui black button" (click)="onDelete(bandCard.id)">Delete</button>
       <button class="ui black button" (click)="onEdit(bandCard.id)">Edit</button>
     </div>
-
     <span class="right floated">
       <i class="heart outline like icon"></i>
       17 likes

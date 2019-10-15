@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const fs = require('fs');
 const path = require("path");
-
+const Band = require('./models/band');
 
 const cheerio = require('cheerio');
 
@@ -12,6 +12,29 @@ const bandsRoutes = require('./routes/bands');
 const app = express();
 
 const phantom = require('phantom');
+
+fs.readFile('src/assets/allBandInfo.json', 'utf8', function (err, data) {
+  if (err) throw err;
+  let bandData = JSON.parse(data);
+  console.log(bandData, 'length');
+
+  bandData.map((el) => {
+    new Band({
+      name: el.name,
+      info: el.info,
+      imagePath: '',
+      genre: el.genre,
+      existence: el.existence,
+      country: el.country,
+      users: el.users,
+      albums: el.albums
+    })
+      .save()
+      .catch(err => {
+      console.log(err.message);
+    });
+  });
+});
 
 /*(async function() {
   const instance = await phantom.create();
