@@ -1,6 +1,19 @@
 <div class="ui segments">
+  <sui-select class="selection"
+              [(ngModel)]="selectedOption"
+              [options]="options"
+              labelField="number"
+              [isSearchable]="true"
+              [isDisabled]="false"
+              (ngModelChange)="changeBandsSize($event)"
+              #select>
+    <sui-select-option *ngFor="let option of select.filteredOptions"
+                       [value]="option">
+    </sui-select-option>
+  </sui-select>
   <div class="ui segment">
-    <sui-pagination [collectionSize]="totalBands" [pageSize]="bandsPerPage">
+    <sui-pagination  [maxSize]="3" (pageChange)="onChangePage($event)" [collectionSize]="bandsCount" [pageSize]="bandsPerPage">
     </sui-pagination>
   </div>
+
 </div>

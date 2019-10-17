@@ -16,9 +16,19 @@ const phantom = require('phantom');
 fs.readFile('src/assets/allBandInfo.json', 'utf8', function (err, data) {
   if (err) throw err;
   let bandData = JSON.parse(data);
-  console.log(bandData, 'length');
 
-  bandData.map((el) => {
+
+
+/*
+  async function processArray(array) {
+    for (const item of bandData) {
+      await saveSchemaData(item);
+    }
+  }
+  processArray(bandData);
+
+  function saveSchemaData(el) {
+    console.log('saved');
     new Band({
       name: el.name,
       info: el.info,
@@ -33,7 +43,9 @@ fs.readFile('src/assets/allBandInfo.json', 'utf8', function (err, data) {
       .catch(err => {
       console.log(err.message);
     });
-  });
+  }
+*/
+
 });
 
 /*(async function() {

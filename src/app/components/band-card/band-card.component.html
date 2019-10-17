@@ -1,6 +1,6 @@
 <div class="ui card">
   <div class="image">
-    <img [src]="bandCard.imagePath" [alt]="bandCard.name">
+    <img [src]="bandCard.imagePath">
   </div>
   <div class="content">
     <div class="header">{{bandCard.name}}</div>
@@ -10,10 +10,10 @@
       <button class="ui black button" (click)="onDelete(bandCard.id)">Delete</button>
       <button class="ui black button" (click)="onEdit(bandCard.id)">Edit</button>
     </div>
-    <span class="right floated">
+<!--    <span class="right floated">
       <i class="heart outline like icon"></i>
       17 likes
-    </span>
+    </span>-->
   </div>
   <div class="extra content">
     <span class="left floated like">

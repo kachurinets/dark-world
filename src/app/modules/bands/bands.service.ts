@@ -11,28 +11,34 @@ import { Router } from '@angular/router';
 export class BandsService {
   constructor(
     private http: HttpClient,
-    private router: Router) {}
+    private router: Router) {
+  }
+
   private bands: any = [];
   private bandsUpdated = new Subject();
 
-  getBands() {
-      this.http.get<{ message: string; bands: any }>(
-        'http://localhost:3000/api/bands'
-      )
-        .pipe(map((bandData) => {
-          return bandData.bands.map(band => {
+  getBands(bandsPerPage: number, currentPage: number) {
+    const queryParams = `?pagesize=${bandsPerPage}&page=${currentPage}`;
+    this.http.get<{ message: string; bands: any, maxBands: number }>(
+      'http://localhost:3000/api/bands' + queryParams
+    )
+      .pipe(map((bandData) => {
+        return {
+          bands: bandData.bands.map(band => {
             return {
               name: band.name,
               info: band.info,
               id: band._id,
               imagePath: band.imagePath
             };
-          });
-        }))
-        .subscribe((transformedBands) => {
-          this.bands = transformedBands;
-          this.bandsUpdated.next([...this.bands]);
-        });
+          }),
+          maxBands: bandData.maxBands
+        };
+      }))
+      .subscribe((transformedBandData) => {
+        this.bands = transformedBandData.bands;
+        this.bandsUpdated.next({bands: [...this.bands], bandCount: transformedBandData.maxBands});
+      });
   }
 
   getBandUpdateListener() {
@@ -42,8 +48,8 @@ export class BandsService {
   addBand(name: string, info: string, image: File) {
     const bandData = new FormData();
     bandData.append('name', name);
-    bandData.append("info", info);
-    bandData.append("image", image, name );
+    bandData.append('info', info);
+    bandData.append('image', image, name);
 
     this.http.post('http://localhost:3000/api/bands', bandData)
       .subscribe((resp: any) => {
@@ -61,7 +67,7 @@ export class BandsService {
   }
 
   deletePost(bandId: string) {
-    this.http.delete("http://localhost:3000/api/bands/" + bandId)
+    this.http.delete('http://localhost:3000/api/bands/' + bandId)
       .subscribe(() => {
         this.bands = this.bands.filter(band => band.id !== bandId);
         this.bandsUpdated.next([...this.bands]);
@@ -76,7 +82,7 @@ export class BandsService {
     let bandData: Band | FormData;
     if (typeof (image) === 'object') {
       bandData = new FormData();
-      bandData.append("id", id);
+      bandData.append('id', id);
       bandData.append('name', name);
       bandData.append('info', info);
       bandData.append('image', image, name);

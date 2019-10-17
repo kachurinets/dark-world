@@ -15,6 +15,11 @@ export class BandsComponent implements OnInit, OnDestroy {
   bands;
   private bandsSub: Subscription;
   isLoading = false;
+  bandsPerPage = 10;
+  currentPage;
+  bandsCount;
+
+
 
   constructor(
     private router: Router,
@@ -24,10 +29,12 @@ export class BandsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    this.bandsService.getBands();
+    this.bandsService.getBands(this.bandsPerPage, 1);
     this.bandsSub = this.bandsService.getBandUpdateListener()
-      .subscribe((bands) => {
-        this.bands = bands;
+      .subscribe((resp: any) => {
+        this.bands = resp.bands;
+        console.log(resp);
+        this.bandsCount = resp.bandCount;
         this.isLoading = false;
       });
   }
@@ -40,7 +47,18 @@ export class BandsComponent implements OnInit, OnDestroy {
       this.router.navigate(['/bands/band', id]);
     }
   }
+
+  changeSize(event) {
+    console.log(event, 'event');
+    this.bandsService.getBands(+event, this.currentPage);
+  }
   ngOnDestroy(): void {
     this.bandsSub.unsubscribe();
+  }
+
+  onChangePage(event) {
+    const currentPage = event;
+    this.currentPage = currentPage;
+    this.bandsService.getBands(this.bandsPerPage, this.currentPage);
   }
 }

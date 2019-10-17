@@ -31,7 +31,7 @@ router.post("", multer({storage: storage}).single("image"), (req, res, next) => 
   const url = req.protocol + '://' + req.get("host");
   const band = new Band({
     name: req.body.name,
-    content: req.body.content,
+    info: req.body.info,
     imagePath: url + "/images/" + req.file.filename
   });
   band.save().then( createdBand => {
@@ -46,7 +46,6 @@ router.post("", multer({storage: storage}).single("image"), (req, res, next) => 
 });
 
 router.put("/:id", multer({storage: storage}).single("image"), (req, res, next) => {
-  console.log(req.file);
   let imagePath = req.body.imagePath;
   if (req.file) {
     const url = req.protocol + '://' + req.get("host");
@@ -55,23 +54,34 @@ router.put("/:id", multer({storage: storage}).single("image"), (req, res, next) 
   const band = new Band({
     _id: req.body.id,
     name: req.body.name,
-    content: req.body.content,
+    info: req.body.info,
     imagePath: imagePath
   });
   Band.updateOne({_id: req.params.id}, band ).then(result => {
-    console.log(result);
     res.status(200).json({message: "Update succesfful"});
   });
 });
 
 router.get('', (req, res, next) => {
-  Band.find().
+  const pageSize = +req.query.pagesize;
+  const currentPage = +req.query.page;
+  const bandQuery = Band.find();
+  let fetchedBands;
+  if (pageSize && currentPage) {
+    bandQuery.skip(pageSize * currentPage).limit(pageSize);
+  }
+  bandQuery.
   then(documents => {
-    res.status(200).json({
-      message: 'Posts fetched succesfully!',
-      bands: documents
+    fetchedBands = documents;
+    return Band.countDocuments();
+  })
+    .then(count => {
+      res.status(200).json({
+        message: "Bands fetched successfully!",
+        bands: fetchedBands,
+        maxBands: count
+      });
     });
-  });
 });
 
 router.get("/:id", (req, res, next) => {

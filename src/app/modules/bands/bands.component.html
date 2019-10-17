@@ -9,4 +9,6 @@
 
 </div>
 
-  <app-pagination ></app-pagination>
+<div *ngIf="bandsCount">
+  <app-pagination [bandsCount]="100" (sizeBandsChange)="changeSize($event)" (pageChange)="onChangePage($event)"></app-pagination>
+</div>
