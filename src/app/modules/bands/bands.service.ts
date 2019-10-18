@@ -29,7 +29,12 @@ export class BandsService {
               name: band.name,
               info: band.info,
               id: band._id,
-              imagePath: band.imagePath
+              imagePath: band.imagePath,
+              genre: band.genre,
+              existence: band.existence,
+              country: band.counry,
+              user: band.users,
+              albums: band.albums
             };
           }),
           maxBands: bandData.maxBands

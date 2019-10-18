@@ -1,18 +1,25 @@
 .container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 50px 50px 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 50px 50px 50px 1fr;
   grid-gap: 30px;
   padding: 30px;
 
 }
-
+.band-card {
+  min-height: 150px;
+}
 .title {
-  grid-column: 1/5;
+  grid-column: 1/6;
   grid-row: 1;
 }
 
 .filter {
-  grid-column: 1/5;
+  grid-column: 1/6;
   grid-row: 2;
+}
+
+.divider {
+  grid-column: 1/6;
+  grid-row: 3;
 }

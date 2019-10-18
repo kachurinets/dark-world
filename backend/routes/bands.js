@@ -1,4 +1,3 @@
-
 const express = require("express");
 const Band = require('../models/band');
 const multer = require('multer');
@@ -13,7 +12,7 @@ const MIME_TYPE_MAP = {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const isValid  = MIME_TYPE_MAP[file.mimetype];
+    const isValid = MIME_TYPE_MAP[file.mimetype];
     let error = new Error("Invalid mime type");
     if (isValid) {
       error = null;
@@ -34,7 +33,7 @@ router.post("", multer({storage: storage}).single("image"), (req, res, next) => 
     info: req.body.info,
     imagePath: url + "/images/" + req.file.filename
   });
-  band.save().then( createdBand => {
+  band.save().then(createdBand => {
     res.status(201).json({
       message: 'Post added successfully',
       band: {
@@ -57,7 +56,7 @@ router.put("/:id", multer({storage: storage}).single("image"), (req, res, next) 
     info: req.body.info,
     imagePath: imagePath
   });
-  Band.updateOne({_id: req.params.id}, band ).then(result => {
+  Band.updateOne({_id: req.params.id}, band).then(result => {
     res.status(200).json({message: "Update succesfful"});
   });
 });
@@ -70,8 +69,7 @@ router.get('', (req, res, next) => {
   if (pageSize && currentPage) {
     bandQuery.skip(pageSize * currentPage).limit(pageSize);
   }
-  bandQuery.
-  then(documents => {
+  bandQuery.then(documents => {
     fetchedBands = documents;
     return Band.countDocuments();
   })
@@ -97,7 +95,7 @@ router.get("/:id", (req, res, next) => {
 router.delete("/:id", (req, res, next) => {
   Band.deleteOne({_id: req.params.id}).then(result => {
     console.log(result);
-    res.status(200).json({ message: "Post deleted!" });
+    res.status(200).json({message: "Post deleted!"});
   });
 
 });

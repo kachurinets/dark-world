@@ -4,9 +4,9 @@
   </div>
   <div class="content">
     <div class="header">{{bandCard.name}}</div>
-    <div class="meta">Black Metal, Ambient</div>
+    <div class="meta">{{bandCard.genre}}</div>
     <div class="description">
-      {{bandCard.genre}}
+
       <button class="ui black button" (click)="onDelete(bandCard.id)">Delete</button>
       <button class="ui black button" (click)="onEdit(bandCard.id)">Edit</button>
     </div>

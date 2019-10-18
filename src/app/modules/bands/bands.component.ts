@@ -19,8 +19,6 @@ export class BandsComponent implements OnInit, OnDestroy {
   currentPage;
   bandsCount;
 
-
-
   constructor(
     private router: Router,
     public bandsService: BandsService,
@@ -34,12 +32,10 @@ export class BandsComponent implements OnInit, OnDestroy {
       .subscribe((resp: any) => {
         this.bands = resp.bands;
         console.log(resp);
-        this.bandsCount = resp.bandCount;
+        this.bandsCount = resp.bandCount - 1;
         this.isLoading = false;
       });
   }
-
-  bandCards = 10;
 
   navigateToPage(event, id) {
     console.log(event);

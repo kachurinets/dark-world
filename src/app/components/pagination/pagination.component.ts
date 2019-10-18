@@ -10,8 +10,8 @@ export class PaginationComponent implements OnInit, OnChanges {
   @Output() sizeBandsChange = new EventEmitter<string>();
   @Output() pageChange = new EventEmitter();
   @Input() bandsCount;
+  @Input() bandsPerPage;
 
-  bandsPerPage = 2;
   bands;
   options;
   selectedOption;

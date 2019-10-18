@@ -3,12 +3,18 @@
 <div class="container" *ngIf="!isLoading">
   <div class="title">This is Bands page</div>
   <app-filter class="filter"></app-filter>
-  <app-band-card [bandCard]="band" *ngFor="let band of bands" (click)="navigateToPage($event, band.id)"
-                 class="band-card"></app-band-card>
-
-
+  <div class="ui inverted divider"></div>
+  <app-band-card [bandCard]="band"
+                 *ngFor="let band of bands"
+                 (click)="navigateToPage($event, band.id)"
+                 class="band-card">
+  </app-band-card>
 </div>
 
 <div *ngIf="bandsCount">
-  <app-pagination [bandsCount]="100" (sizeBandsChange)="changeSize($event)" (pageChange)="onChangePage($event)"></app-pagination>
+  <app-pagination [bandsCount]="bandsCount"
+                  (sizeBandsChange)="changeSize($event)"
+                  (pageChange)="onChangePage($event)"
+                  [bandsPerPage]="bandsPerPage"
+  ></app-pagination>
 </div>

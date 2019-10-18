@@ -12,7 +12,10 @@
     </sui-select-option>
   </sui-select>
   <div class="ui segment">
-    <sui-pagination  [maxSize]="3" (pageChange)="onChangePage($event)" [collectionSize]="bandsCount" [pageSize]="bandsPerPage">
+    <sui-pagination   [maxSize]="3"
+                     (pageChange)="onChangePage($event)"
+                     [collectionSize]="bandsCount"
+                     [pageSize]="bandsPerPage">
     </sui-pagination>
   </div>
 
