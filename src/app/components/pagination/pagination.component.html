@@ -1,4 +1,4 @@
-<div class="ui segments">
+<div class="ui segments pagination-wrap">
   <sui-select class="selection"
               [(ngModel)]="selectedOption"
               [options]="options"
@@ -11,12 +11,10 @@
                        [value]="option">
     </sui-select-option>
   </sui-select>
-  <div class="ui segment">
+  <div class="ui inverted divider"></div>
     <sui-pagination   [maxSize]="3"
                      (pageChange)="onChangePage($event)"
                      [collectionSize]="bandsCount"
                      [pageSize]="bandsPerPage">
     </sui-pagination>
-  </div>
-
 </div>
