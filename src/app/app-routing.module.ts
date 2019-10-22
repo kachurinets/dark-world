@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: './modules/admin/admin.module#AdminModule',
   },
+  {
+    path: 'auth',
+    loadChildren: './modules/auth/auth.module#AuthModule',
+  },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
