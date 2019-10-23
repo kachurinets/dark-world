@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'home',
     loadChildren: './modules/home/home.module#HomeModule',
@@ -23,7 +23,6 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: './modules/auth/auth.module#AuthModule',
   },
-
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

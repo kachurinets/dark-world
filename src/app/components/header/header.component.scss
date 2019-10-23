@@ -1,0 +1,21 @@
+.header {
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+  align-items: center;
+  background-color: rgba(0,0,0,.8);
+  height: 100%;
+  padding: 0 20px;
+
+  &__list {
+    display: flex;
+    justify-content: flex-end;
+  }
+  &__item {
+    margin-right: 10px;
+  }
+  &__item-link {
+    color: #b3b3b3;
+    font-size: 14px;
+  }
+
+}

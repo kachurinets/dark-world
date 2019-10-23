@@ -7,11 +7,11 @@ body {
 
 app-root {
   display: grid;
-
   grid-template-areas:
-    "nav article"
+    "header header"
+    "article article"
     "footer footer ";
-  grid-template-rows: 1fr 70px;
+  grid-template-rows: 60px 5fr 70px;
   grid-template-columns: 1fr 5fr;
   grid-row-gap: 10px;
   height: 100vh;
@@ -35,7 +35,7 @@ app-root {
   margin: 0;
 }
 
-#pageHeader {
+#header {
   grid-area: header;
 }
 #pageFooter {

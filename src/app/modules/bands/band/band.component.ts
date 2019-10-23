@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from 'ngx-gallery';
-import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { NgxGalleryImage, NgxGalleryOptions } from 'ngx-gallery';
+
 import { BandsService } from '../bands.service';
 import { Band } from '../../../models/band.model';
 

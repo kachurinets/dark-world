@@ -1,20 +1,5 @@
-.fields {
-  align-items: flex-end;
-  background: transparent !important;
-}
-.button {
-  width: 100%;
-}
-.field {
-  width: auto !important;
-}
-.field label {
-  color: #fff;
-}
-
-
-.filter-wrap {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-column-gap: 30px;
+.filter {
+  &__label {
+    color: #b3b3b3 !important;
+  }
 }

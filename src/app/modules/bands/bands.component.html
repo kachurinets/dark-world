@@ -1,14 +1,15 @@
 <div *ngIf="isLoading" class="ui active centered inline loader ">
 </div>
 <div class="container" *ngIf="!isLoading">
-  <div class="title">This is Bands page</div>
+ <!-- <div class="title">This is Bands page</div>-->
+  <div class="bands-wrap">
+    <app-band-card [bandCard]="band"
+                   *ngFor="let band of bands"
+                   (click)="navigateToPage($event, band.id)"
+                   class="band-card">
+    </app-band-card>
+  </div>
   <app-filter class="filter"></app-filter>
-  <div class="ui inverted divider"></div>
-  <app-band-card [bandCard]="band"
-                 *ngFor="let band of bands"
-                 (click)="navigateToPage($event, band.id)"
-                 class="band-card">
-  </app-band-card>
 </div>
 
 <div *ngIf="bandsCount">

@@ -1,5 +1,6 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+
 import { AlbumsComponent } from './albums.component';
 
 @NgModule({

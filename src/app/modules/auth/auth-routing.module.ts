@@ -22,5 +22,6 @@ import { SignupComponent } from './signup/signup.component';
   ],
   exports: [RouterModule]
 })
+
 export class AuthRoutingModule {
 }

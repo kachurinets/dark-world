@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import { Band } from '../../models/band.model';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+
+import { Band } from '../../models/band.model';
+
 
 @Injectable({
   providedIn: 'root'
