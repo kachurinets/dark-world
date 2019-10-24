@@ -18,19 +18,24 @@
         Albums
       </a>
     </li>
-    <li class="header__item">
+    <li *ngIf="userIsAuthenticated" class="header__item">
       <a class="header__item-link" routerLink="/admin/create">
         Admin
       </a>
     </li>
-    <li class="header__item">
+    <li *ngIf="!userIsAuthenticated" class="header__item">
       <a class="header__item-link " routerLink="/auth/login">
         Login
       </a>
     </li>
-    <li class="header__item">
+    <li *ngIf="!userIsAuthenticated" class="header__item">
       <a class="header__item-link" routerLink="/auth/signup">
         Signup
+      </a>
+    </li>
+    <li *ngIf="userIsAuthenticated" class="header__item">
+      <a class="header__item-link" (click)="onLogout()">
+        Logout
       </a>
     </li>
   </ul>
