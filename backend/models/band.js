@@ -8,7 +8,8 @@ const bandSchema = mongoose.Schema({
   existence: { type: String, required: false },
   country: { type: String, required: false },
   users: { type: Array , required: false },
-  albums: {type: Array, required: false }
+  albums: {type: Array, required: false },
+  creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 });
 
 module.exports = mongoose.model('Band', bandSchema);

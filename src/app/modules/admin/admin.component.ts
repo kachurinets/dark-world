@@ -49,7 +49,8 @@ export class AdminComponent implements OnInit {
               id: bandData._id,
               name: bandData.name,
               info: bandData.info,
-              imagePath: bandData.imagePath
+              imagePath: bandData.imagePath,
+              creator: bandData.creator
             };
             this.form.setValue({
               'name': this.band.name,

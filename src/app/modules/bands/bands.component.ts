@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import { BandsService } from './bands.service';
+import { AuthService } from '../auth/auth.service';
 
 
 @Component({
@@ -13,21 +14,25 @@ import { BandsService } from './bands.service';
 })
 export class BandsComponent implements OnInit, OnDestroy {
   bands;
-  private bandsSub: Subscription;
   isLoading = false;
   bandsPerPage = 10;
   currentPage;
   bandsCount;
+  userIsAuthenticated = false;
+  userId: string;
+  private bandsSub: Subscription;
+  private authStatusSub: Subscription;
 
   constructor(
     private router: Router,
     public bandsService: BandsService,
-    public http: HttpClient) {
+    public authService: AuthService) {
   }
 
   ngOnInit() {
     this.isLoading = true;
     this.bandsService.getBands(this.bandsPerPage, 1);
+    this.userId = this.authService.getUserId();
     this.bandsSub = this.bandsService.getBandUpdateListener()
       .subscribe((resp: any) => {
         this.bands = resp.bands;
@@ -35,11 +40,18 @@ export class BandsComponent implements OnInit, OnDestroy {
         this.bandsCount = resp.bandCount - 1;
         this.isLoading = false;
       });
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+        this.userId = this.authService.getUserId();
+      });
   }
 
   navigateToPage(event, id) {
     console.log(event);
-    if (event.target.localName !== "button") {
+    if (event.target.localName !== 'button') {
       this.router.navigate(['/bands/band', id]);
     }
   }
@@ -48,13 +60,15 @@ export class BandsComponent implements OnInit, OnDestroy {
     console.log(event, 'event');
     this.bandsService.getBands(+event, this.currentPage);
   }
+
   ngOnDestroy(): void {
     this.bandsSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
   }
 
   onChangePage(event) {
     const currentPage = event;
-    this.currentPage = currentPage;
+    this.currentPage = currentPage - 1;
     this.bandsService.getBands(this.bandsPerPage, this.currentPage);
   }
 }

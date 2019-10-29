@@ -27,12 +27,13 @@ const storage = multer.diskStorage({
   }
 });
 
-router.post("", multer({storage: storage}).single("image"), (req, res, next) => {
+router.post("", checkAuth, multer({storage: storage}).single("image"), (req, res, next) => {
   const url = req.protocol + '://' + req.get("host");
   const band = new Band({
     name: req.body.name,
     info: req.body.info,
-    imagePath: url + "/images/" + req.file.filename
+    imagePath: url + "/images/" + req.file.filename,
+    creator: req.userData.userId,
   });
   band.save().then(createdBand => {
     res.status(201).json({
@@ -55,10 +56,17 @@ router.put("/:id", checkAuth, multer({storage: storage}).single("image"), (req, 
     _id: req.body.id,
     name: req.body.name,
     info: req.body.info,
-    imagePath: imagePath
+    imagePath: imagePath,
+    creator: req.userData.userId
   });
-  Band.updateOne({_id: req.params.id}, band).then(result => {
-    res.status(200).json({message: "Update succesfful"});
+  Band.updateOne({_id: req.params.id, creator: req.userData.userId}, band).then(result => {
+    console.log(result);
+    if (result.nModified > 0) {
+      res.status(200).json({message: "Update succesful!"})
+    } else {
+      res.status(401).json({message: "Not authorized"});
+    }
+
   });
 });
 
@@ -94,9 +102,13 @@ router.get("/:id", (req, res, next) => {
 });
 
 router.delete("/:id", checkAuth, (req, res, next) => {
-  Band.deleteOne({_id: req.params.id}).then(result => {
+  Band.deleteOne({_id: req.params.id, creator: req.userData.userId}).then(result => {
     console.log(result);
-    res.status(200).json({message: "Post deleted!"});
+    if (result.n > 0) {
+      res.status(200).json({message: "Deletion succesful!"})
+    } else {
+      res.status(401).json({message: "Not authorized"});
+    }
   });
 
 });

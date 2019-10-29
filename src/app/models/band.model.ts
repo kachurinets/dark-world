@@ -8,4 +8,5 @@ export interface Band {
   country?: string;
   users?;
   albums?;
+  creator?: string;
 }
