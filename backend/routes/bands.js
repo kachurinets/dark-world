@@ -2,6 +2,7 @@ const express = require("express");
 const Band = require('../models/band');
 const multer = require('multer');
 const checkAuth = require("../middleware/check-auth");
+const fs = require('fs');
 
 const router = express.Router();
 const MIME_TYPE_MAP = {
@@ -45,6 +46,7 @@ router.post("", checkAuth, multer({storage: storage}).single("image"), (req, res
     });
   });
 });
+
 
 router.put("/:id", checkAuth, multer({storage: storage}).single("image"), (req, res, next) => {
   let imagePath = req.body.imagePath;
@@ -91,6 +93,42 @@ router.get('', (req, res, next) => {
     });
 });
 
+router.get("/test", checkAuth,(req, res, next) => {
+  fs.readFile('backend/models/allBandInfo.json', 'utf8', function (err, data) {
+    console.log('parse....')
+    if (err) throw err;
+    let bandData = JSON.parse(data);
+
+    async function processArray(array) {
+      for (const item of bandData) {
+        await saveSchemaData(item);
+      }
+    }
+    processArray(bandData);
+
+    function saveSchemaData(el) {
+      console.log('saved');
+      new Band({
+        name: el.name,
+        info: el.info,
+        imagePath: '',
+        genre: el.genre,
+        existence: el.existence,
+        country: el.country,
+        users: el.users,
+        albums: el.albums,
+        creator: req.userData.userId
+      })
+          .save()
+          .catch(err => {
+            console.log(err.message);
+          });
+    }
+
+  });
+});
+
+
 router.get("/:id", (req, res, next) => {
   Band.findById(req.params.id).then(band => {
     if (band) {
@@ -112,5 +150,7 @@ router.delete("/:id", checkAuth, (req, res, next) => {
   });
 
 });
+
+
 
 module.exports = router;

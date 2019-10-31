@@ -79,6 +79,10 @@ export class AdminComponent implements OnInit {
     this.form.reset();
   }
 
+  createParsedBand() {
+    this.bandService.createParsedBand().subscribe(resp => console.log(resp));
+  }
+
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({image: file});

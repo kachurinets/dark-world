@@ -3,7 +3,7 @@
   <div class="band__col">
     <div class="band__photo">
       <img
-        src="https://web.archive.org/web/20161013094146/http://dark-world.ru/files/bands/photos/Burzum/dw_beontsi2.jpg"
+        src="assets/images/88_logo.png"
         alt="">
     </div>
     <h4 class="ui horizontal divider header">
@@ -53,9 +53,10 @@
     </table>
   </div>
   <div class="band__col">
-    <div class="band__info">
+    <div class="band__info" *ngIf="band">
       <div class="ui large header">{{band?.name}}</div>
-        {{band?.info}}
+      <div [innerHTML]="(band.info.length>3000)? (band.info | slice:0:3000)+'...':(band.info)"></div>
+
     </div>
   </div>
   <div class="band-wrap__col">
