@@ -5,10 +5,10 @@
       <label>Название группы</label>
       <input formControlName="name" type="text" name="name" placeholder="name">
     </div>
-    <div class="field">
+<!--    <div class="field">
       <label>Еекст</label>
       <input formControlName="info" type="text" name="info" placeholder="content">
-    </div>
+    </div>-->
     <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
       <img [src]="imagePreview" [alt]="form.value.name">
     </div>
@@ -23,3 +23,4 @@
 
 <div *ngIf="isLoading" class="ui active centered inline loader ">
 </div>
+<ckeditor *ngIf="band" [editor]="Editor" [(ngModel)]="band.info"></ckeditor>

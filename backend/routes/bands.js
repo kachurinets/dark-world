@@ -52,12 +52,12 @@ router.put("/:id", checkAuth, multer({storage: storage}).single("image"), (req, 
   let imagePath = req.body.imagePath;
   if (req.file) {
     const url = req.protocol + '://' + req.get("host");
-    imagePath = url + "/images/" + req.file.filename
+    imagePath = url + "/images/" + req.file.filename;
+    console.log(imagePath, 'url');
   }
   const band = new Band({
     _id: req.body.id,
     name: req.body.name,
-    info: req.body.info,
     imagePath: imagePath,
     creator: req.userData.userId
   });

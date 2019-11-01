@@ -19,7 +19,7 @@ var download = async function(uri, filename, callback){
 };
 
 
-/*(async function () {
+(async function () {
     const instance = await phantom.create();
     const page = await instance.createPage();
     await page.on('onResourceRequested', function (requestData) {
@@ -68,7 +68,7 @@ var download = async function(uri, filename, callback){
 
         console.log(genre, 'test');
         let band = {
-            name: resultArray[i],
+            name: newArrayBands[i],
             info: bandInfo,
             country: country,
             genre: genre,
@@ -89,10 +89,10 @@ var download = async function(uri, filename, callback){
 
 
     await instance.exit();
-})();*/
+})();
 
 
-(async function () {
+/*(async function () {
     const instance = await phantom.create();
     const page = await instance.createPage();
     await page.on('onResourceRequested', function (requestData) {
@@ -119,5 +119,5 @@ var download = async function(uri, filename, callback){
 
 
     await instance.exit();
-})();
+})();*/
 

@@ -1,7 +1,7 @@
 export interface Band {
   id: string;
   name: string;
-  info: string;
+  info?: string;
   imagePath: string;
   genre?: string;
   existence?: string;

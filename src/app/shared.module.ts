@@ -8,6 +8,7 @@ import { BandCardComponent } from './components/band-card/band-card.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 @NgModule({
@@ -23,7 +24,9 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     ReactiveFormsModule,
     SuiSelectModule,
     SuiModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    CKEditorModule,
+
   ],
   exports: [
     CommonModule,
@@ -35,7 +38,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     BandCardComponent,
     PaginationComponent,
     CommentsComponent,
-    NgxGalleryModule
+    NgxGalleryModule,
+    CKEditorModule,
   ],
   providers: [
   ],

@@ -78,19 +78,17 @@ export class BandsService {
     return this.http.get<any>('http://localhost:3000/api/bands/' + id);
   }
 
-  updateBand(id: string, name: string, info: string, image: File | string) {
+  updateBand(id: string, name: string, image: File | string) {
     let bandData: Band | FormData;
     if (typeof (image) === 'object') {
       bandData = new FormData();
       bandData.append('id', id);
       bandData.append('name', name);
-      bandData.append('info', info);
       bandData.append('image', image, name);
     } else {
       bandData = {
         id: id,
         name: name,
-        info: info,
         imagePath: image,
         creator: null
       };

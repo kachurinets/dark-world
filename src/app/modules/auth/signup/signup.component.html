@@ -1,4 +1,4 @@
-<form class="ui form" (submit)="onSignup(signupForm)" #signupForm="ngForm">
+<form *ngIf="!isLoading" class="ui form" (submit)="onSignup(signupForm)" #signupForm="ngForm">
   <div class="field">
     <label>Login</label>
     <input type="email" name="email" ngModel #emailInput="ngModel" placeholder="Login" required email>
@@ -17,3 +17,5 @@
   </div>
   <button class="ui button" type="submit">signup</button>
 </form>
+<div *ngIf="isLoading" class="ui active centered inline loader ">
+</div>

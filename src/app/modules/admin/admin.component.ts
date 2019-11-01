@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import { BandsService } from '../bands/bands.service';
 import { Band } from '../../models/band.model';
@@ -13,12 +14,14 @@ import { mimeType } from './mime-type.validator';
 })
 
 export class AdminComponent implements OnInit {
+  htmlContent = `<div>test</div>`;
   public form: FormGroup;
   private mode = 'create';
   private bandId: string;
   private band: Band;
   public isLoading = false;
   public imagePreview: string | ArrayBuffer;
+  public Editor = ClassicEditor;
 
   constructor(
     public bandService: BandsService,
@@ -30,7 +33,7 @@ export class AdminComponent implements OnInit {
       name: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
       }),
-      info: new FormControl(null, {validators: [Validators.required]}),
+/*      info: new FormControl(null, {validators: [Validators.required]}),*/
       image: new FormControl(null, {
         validators: [Validators.required],
         asyncValidators:  [mimeType]
@@ -48,13 +51,12 @@ export class AdminComponent implements OnInit {
             this.band = {
               id: bandData._id,
               name: bandData.name,
-              info: bandData.info,
               imagePath: bandData.imagePath,
+              info: bandData.info,
               creator: bandData.creator
             };
             this.form.setValue({
               'name': this.band.name,
-              'info': this.band.info,
               'image': this.band.imagePath
             });
           });
@@ -74,7 +76,7 @@ export class AdminComponent implements OnInit {
     if (this.mode === 'create') {
       this.bandService.addBand(this.form.value.name, this.form.value.info, this.form.value.image);
     } else {
-      this.bandService.updateBand(this.bandId, this.form.value.name, this.form.value.name, this.form.value.image);
+      this.bandService.updateBand(this.bandId, this.form.value.name, this.form.value.image);
     }
     this.form.reset();
   }
