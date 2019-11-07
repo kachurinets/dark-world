@@ -2,6 +2,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { AdminComponent } from './admin.component';
+import { GeneralConfigComponent } from './general-config/general-config.component';
 
 @NgModule({
   imports: [
@@ -11,6 +12,9 @@ import { AdminComponent } from './admin.component';
       },
       {
         path: 'edit/:bandId', component: AdminComponent,
+      },
+      {
+        path: 'general-config', component: GeneralConfigComponent,
       }
     ])
   ],

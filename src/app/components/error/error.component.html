@@ -1,0 +1,12 @@
+<!--<div class="header">{{ modal.context.title }}</div>-->
+<!--<div class="content">
+    <p>{{ modal.context.question }}</p>
+</div>-->
+<sui-message class="attached warning" [isDismissable]="false">
+    <div class="header">
+        {{modal.context.title}}
+    </div>
+    <p>{{ modal.context.question }}</p>
+
+    <button class="ui green button" (click)="modal.approve(undefined)" autofocus>OK</button>
+</sui-message>

@@ -14,7 +14,7 @@ const cheerio = require('cheerio');
 
 const bandsRoutes = require('./routes/bands');
 const userRoutes = require('./routes/user');
-
+const generalConfigRoutes = require('./routes/general-config')
 const app = express();
 
 const phantom = require('phantom');
@@ -202,5 +202,6 @@ app.use((req, res, next) => {
 
 app.use("/api/bands", bandsRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/general-config", generalConfigRoutes);
 
 module.exports = app;

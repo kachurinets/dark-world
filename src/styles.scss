@@ -15,7 +15,8 @@ app-root {
   grid-template-columns: 1fr 5fr;
   grid-row-gap: 10px;
   margin: 0;
-  height: 100vh;
+/*  height: 100vh;*/
+  min-height: 100vh;
 }
 /* Stack the layout on small devices/viewports. */
 @media all and (max-width: 575px) {

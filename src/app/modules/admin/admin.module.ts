@@ -3,10 +3,12 @@ import { AdminComponent } from './admin.component';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { SharedModule } from '../../shared.module';
+import { GeneralConfigComponent } from './general-config/general-config.component';
 
 @NgModule({
   declarations: [
-    AdminComponent
+    AdminComponent,
+    GeneralConfigComponent
   ],
   imports: [
     AdminRoutingModule,
