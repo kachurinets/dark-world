@@ -49,20 +49,13 @@ router.post("", checkAuth, multer({storage: storage}).single("image"), (req, res
     });
 });
 
-router.post("/multi", checkAuth, multer({storage: storage}).single("image"), (req, res, next) => {
-    const url = req.protocol + '://' + req.get("host");
-    console.log(req.file);
-});
 
 
 router.put("/:id", checkAuth, multer({storage: storage}).single("image"), (req, res, next) => {
-
     let imagePath = req.body.imagePath;
-    console.log(imagePath);
     if (req.file) {
         const url = req.protocol + '://' + req.get("host");
         imagePath = url + "/images/" + req.file.filename;
-        console.log(imagePath, 'url');
     }
     const band = new Band({
         _id: req.body.id,
@@ -70,9 +63,7 @@ router.put("/:id", checkAuth, multer({storage: storage}).single("image"), (req, 
         imagePath: imagePath,
         creator: req.userData.userId
     });
-    console.log(imagePath, 'imagePath');
     Band.updateOne({_id: req.params.id, creator: req.userData.userId}, band).then(result => {
-        console.log(result);
         if (result.nModified > 0) {
             res.status(200).json({message: "Update succesful!"})
         } else {
@@ -112,7 +103,7 @@ router.get("genre", (req, res, next) => {
   console.log(doc, 'doc');
 });*/
 
-router.get("/test", checkAuth, (req, res, next) => {
+/*router.get("/test", checkAuth, (req, res, next) => {
     fs.readFile('src/assets/allBandInfo.json', 'utf8', function (err, data) {
         if (err) throw err;
         let bandData = JSON.parse(data);
@@ -126,7 +117,6 @@ router.get("/test", checkAuth, (req, res, next) => {
         processArray(bandData);
 
         function saveSchemaData(el) {
-            console.log('saved');
             new Band({
                 name: el.name,
                 info: el.info,
@@ -145,7 +135,7 @@ router.get("/test", checkAuth, (req, res, next) => {
         }
 
     });
-});
+});*/
 
 
 router.get("/:id", (req, res, next) => {
@@ -160,7 +150,6 @@ router.get("/:id", (req, res, next) => {
 
 router.delete("/:id", checkAuth, (req, res, next) => {
     Band.deleteOne({_id: req.params.id, creator: req.userData.userId}).then(result => {
-        console.log(result);
         if (result.n > 0) {
             res.status(200).json({message: "Deletion succesful!"})
         } else {

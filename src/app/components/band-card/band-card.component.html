@@ -1,21 +1,24 @@
-<div class="ui card">
-  <div class="image">
-    <img [src]="bandCard.imagePath">
+<div class="band-card ui card ">
+  <div class="band-card__image image ">
+    <!--   <img [src]="bandCard.imagePath">-->
   </div>
   <div class="content">
-    <div class="header">{{bandCard.name}}</div>
-    <div class="meta">{{bandCard.genre}}</div>
-    <div class="description">
-
-      <button class="ui black button" (click)="onDelete(bandCard.id)">Delete</button>
-      <button class="ui black button" (click)="onEdit(bandCard.id)">Edit</button>
+    <div class="band-card__name">{{ bandCard.name }}</div>
+    <div class="band-card__genre">{{ bandCard.genre }}</div>
+    <div class="band-card__button-group description">
+      <button class="band-card__btn ui black button" (click)="onDelete(bandCard.id)">
+        Delete
+      </button>
+      <button class="band-card__btn ui black button" (click)="onEdit(bandCard.id)">
+        Edit
+      </button>
     </div>
-<!--    <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>-->
+    <!--    <span class="right floated">
+          <i class="heart outline like icon"></i>
+          17 likes
+        </span>-->
   </div>
-  <div class="extra content">
+<!--  <div class="extra content">
     <span class="left floated like">
       <i class="like icon"></i>
       Like
@@ -24,5 +27,5 @@
       <i class="star icon"></i>
       Favorite
     </span>
-  </div>
+  </div>-->
 </div>

@@ -86,6 +86,8 @@ export class BandsService {
     let bandData: Band | FormData;
     if (typeof image === "object") {
       bandData = new FormData();
+      bandData.append("id", id);
+      bandData.append("name", name);
       bandData.append("image", image, name);
     } else {
       bandData = {
@@ -100,17 +102,5 @@ export class BandsService {
       .subscribe(response => {
         this.router.navigate(["/"]);
       });
-  }
-
-  multiUpdate(images) {
-    this.http
-      .post("http://localhost:3000/api/bands/multi", images)
-      .subscribe(response => {
-        console.log(response);
-      });
-  }
-  createParsedBand() {
-    console.log("tetttes");
-    return this.http.get<any>("http://localhost:3000/api/bands/test");
   }
 }
