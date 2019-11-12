@@ -14,7 +14,7 @@
     </div>
     <div class="field">
       <button class="ui button" (click)="filePicker.click()">Pick image</button>
-      <input type="file" #filePicker (change)="onImagePicked($event)">
+      <input type="file" #filePicker multiple="multiple" (change)="onImagePicked($event)">
     </div>
     <button class="ui button" type="submit" (click)="addBand()">Сохранить</button>
   </form>

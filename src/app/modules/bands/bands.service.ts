@@ -55,11 +55,15 @@ export class BandsService {
     return this.bandsUpdated.asObservable();
   }
 
-  addBand(name: string, info: string, image: File) {
+  addBand(name: string, info: string, images: any) {
+
     const bandData = new FormData();
+    for (const file of images) {
+        console.log(file , 'file');
+      bandData.append('image', file);
+    }
     bandData.append("name", name);
     bandData.append("info", info);
-    bandData.append("image", image, name);
 
     this.http
       .post("http://localhost:3000/api/bands", bandData)
