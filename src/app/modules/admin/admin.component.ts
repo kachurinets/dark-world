@@ -14,7 +14,6 @@ import { mimeType } from './mime-type.validator';
 })
 
 export class AdminComponent implements OnInit {
-  htmlContent = `<div>test</div>`;
   public form: FormGroup;
   private mode = 'create';
   private bandId: string;

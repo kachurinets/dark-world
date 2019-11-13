@@ -7,8 +7,8 @@ const bandSchema = mongoose.Schema({
   genre: { type: String, required: false },
   existence: { type: String, required: false },
   country: { type: String, required: false },
-  users: { type: Array , required: false },
-  albums: {type: Array, required: false },
+  users: { type: String , required: false },
+  albums: {type: String, required: false },
   creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 });
 

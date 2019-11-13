@@ -1,4 +1,5 @@
 <!-- todo: refactor *ngIf, use else-->
+<a [routerLink]="[ '/admin/general-config']">general config</a>
 <div *ngIf="!isLoading" >
   <form class="ui form" *ngIf="band || mode === 'create'" [formGroup]="form">
     <div class="field">

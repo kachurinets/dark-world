@@ -5,6 +5,7 @@ const path = require("path");
 const bandsRoutes = require('./routes/bands');
 const userRoutes = require('./routes/user');
 const generalConfigRoutes = require('./routes/general-config')
+const parser = require('./routes/parser');
 const app = express();
 
 
@@ -33,5 +34,5 @@ app.use((req, res, next) => {
 app.use("/api/bands", bandsRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/general-config", generalConfigRoutes);
-
+app.use("/api/parser", parser);
 module.exports = app;

@@ -1,7 +1,8 @@
 const express = require("express");
 const Band = require("../models/band");
-const multer = require("multer");
 const checkAuth = require("../middleware/check-auth");
+const multer = require("multer");
+
 const fs = require("fs");
 const path = require("path");
 var request = require("request");
@@ -34,39 +35,24 @@ const storage = multer.diskStorage({
     }
 });
 
-router.post(
-    "",
-    checkAuth,
-    multer({ storage: storage }).array("image", 1000),
-    async (req, res, next) => {
-        for await (let file of req.files) {
-            console.log(file, 'file');
-            const url = req.protocol + "://" + req.get("host");
-            Band.findOne({name: file.originalname.split('.').shift()})
-                .then(async band => {
-                    if (band) {
-                        band.imagePath = url + "/images/" + file.filename
-                        await band.save().then(createdBand => {
-                            console.log(createdBand + "was added!");
-                        });
-                    }
-                });
-/*            const band = new Band({
-                name: req.body.name,
-                info: req.body.info,
-                imagePath: url + "/images/" + file.filename,
-                creator: req.userData.userId
-            });
-
-            await band.save().then(createdBand => {
-                console.log(createdBand + "was added!");
-            });*/
-        }
+router.post("", checkAuth, multer({storage: storage}).single("image"), (req, res, next) => {
+    const url = req.protocol + '://' + req.get("host");
+    const band = new Band({
+        name: req.body.name,
+        info: req.body.info,
+        imagePath: url + "/images/" + req.file.filename,
+        creator: req.userData.userId,
+    });
+    band.save().then(createdBand => {
         res.status(201).json({
-            message: "Post added successfully"
+            message: 'Post added successfully',
+            band: {
+                ...createdBand,
+                id: createdBand._id
+            }
         });
-    }
-);
+    });
+});
 
 router.put(
     "/:id",
@@ -196,40 +182,6 @@ router.get("genre", (req, res, next) => {
   console.log(doc, 'doc');
 });*/
 
-/*router.get("/test", checkAuth, (req, res, next) => {
-    fs.readFile('src/assets/allBandInfo.json', 'utf8', function (err, data) {
-        if (err) throw err;
-        let bandData = JSON.parse(data);
-
-        async function processArray(array) {
-            for (const item of bandData) {
-                await saveSchemaData(item);
-            }
-        }
-
-        processArray(bandData);
-
-        function saveSchemaData(el) {
-            new Band({
-                name: el.name,
-                info: el.info,
-                imagePath: '',
-                genre: el.genre,
-                existence: el.existence,
-                country: el.country,
-                users: el.users,
-                albums: el.albums,
-                creator: req.userData.userId
-            })
-                .save()
-                .catch(err => {
-                    console.log(err.message);
-                });
-        }
-
-    });
-});*/
-
 router.get("/:id", (req, res, next) => {
     Band.findById(req.params.id).then(band => {
         if (band) {
@@ -254,5 +206,30 @@ router.delete("/:id", checkAuth, (req, res, next) => {
 
 //Удалить коллекцию
 /*Band.collection.drop();*/
+
+//добавить картинки к существующим группам
+router.post(
+    "/add-image-loop",
+    checkAuth,
+    multer({ storage: storage }).array("image", 1000),
+    async (req, res, next) => {
+        for await (let file of req.files) {
+            console.log(file, 'file');
+            const url = req.protocol + "://" + req.get("host");
+            Band.findOne({name: file.originalname.split('.').shift()})
+                .then(async band => {
+                    if (band) {
+                        band.imagePath = url + "/images/" + file.filename
+                        await band.save().then(createdBand => {
+                            console.log(createdBand + "was added!");
+                        });
+                    }
+                });
+        }
+        res.status(201).json({
+            message: "Post added successfully"
+        });
+    }
+);
 
 module.exports = router;

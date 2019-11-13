@@ -1,8 +1,25 @@
 <div>General Config</div>
 <form class="ui form">
     <div class="field">
-        <label>Добавить стиль</label>
+        <label>Добавить стиль группы</label>
         <input type="text" [(ngModel)]="genre" name="genre" placeholder="genre">
     </div>
     <button class="ui button" type="submit" (click)="addGenre()">Сохранить</button>
 </form>
+<hr>
+<form class="ui form">
+    <p>Выберите фотографии и загрузите на сервер.</p>
+    <p>Эти фотографии будут добавленны к тем группах у которых нет изображения</p>
+    <p>Чтобы скрипт сработал, нужно чтобы расширение картинки заканчивалось на .jpeg и картинка называлась именем группы</p>
+    <div class="field">
+        <button class="ui button" (click)="filePicker.click()">Pick image</button>
+        <input type="file" #filePicker multiple="multiple" (change)="fileChangeEvent($event)">
+        <button class="ui button" type="submit" (click)="upload()">Сохранить</button>
+    </div>
+    <button (click)="parseDataFromDarkWorld()">parseDataFromDarkWorld</button>
+    <hr>
+    <button (click)="parseImageBand()">Parse image band</button>
+    <hr>
+    <button (click)="saveBandsToStorage()">saveBandsToStorage</button>
+</form>
+<hr>
