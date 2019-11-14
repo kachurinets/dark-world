@@ -3,11 +3,11 @@
     <label class="filter__label">Название</label>
     <input type="text" placeholder="Название">
   </div>
-  <div class="field filter__field">
+<!--  <div class="field filter__field" *ngIf="genres">
     <label class="filter__label" for="">Стиль</label>
     <sui-select class="selection"
                 [(ngModel)]="selectedOption"
-                [options]="options"
+                [options]="genres"
                 labelField="name"
                 [isSearchable]="true"
                 [isDisabled]="false"
@@ -16,14 +16,14 @@
                          [value]="option">
       </sui-select-option>
     </sui-select>
-  </div>
+  </div>-->
   <div class="field filter__field">
     <label class="filter__label" for="">Страна</label>
     <sui-select class="selection"
                 [(ngModel)]="selectedCountry"
-                [options]="contries"
                 labelField="name"
                 [isSearchable]="true"
+                [optionsLookup]="optionsLookup"
                 [isDisabled]="false"
                 #selectContry>
       <sui-select-option *ngFor="let contry of selectContry.filteredOptions"

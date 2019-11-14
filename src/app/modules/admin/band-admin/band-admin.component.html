@@ -1,0 +1,38 @@
+<div *ngIf="!isLoading">
+    <form class="ui form" *ngIf="band || mode === 'create'" [formGroup]="form">
+        <div class="field">
+            <label>Название группы</label>
+            <input
+                    formControlName="name"
+                    type="text"
+                    name="name"
+                    placeholder="name"
+            />
+        </div>
+        <div class="field">
+            <ckeditor
+                    *ngIf="band || mode === 'create'"
+                    [editor]="Editor"
+                    formControlName="info"
+            ></ckeditor>
+        </div>
+        <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
+            <img [src]="imagePreview" [alt]="form.value.name"/>
+        </div>
+        <div class="field">
+            <button class="ui button" (click)="filePicker.click()">Pick image</button>
+            <input
+                    type="file"
+                    #filePicker
+                    multiple="multiple"
+                    (change)="onImagePicked($event)"
+            />
+        </div>
+        <button class="ui button" type="submit" (click)="addBand()">
+            Сохранить
+        </button>
+    </form>
+</div>
+<button (click)="createParsedBand()">Bands parsed</button>
+
+<div *ngIf="isLoading" class="ui active centered inline loader "></div>

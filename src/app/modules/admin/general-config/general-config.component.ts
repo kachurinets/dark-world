@@ -11,16 +11,19 @@ import { map } from 'rxjs/operators';
 export class GeneralConfigComponent implements OnInit {
     genre: string;
     filesToUpload: Array<File> = [];
-
+    genres;
     constructor(private adminService: AdminService, private http: HttpClient) {
     }
 
     ngOnInit(): void {
+
+
     }
 
     addGenre() {
         this.adminService.addGenre(this.genre);
     }
+
 
     upload() {
         const formData: any = new FormData();

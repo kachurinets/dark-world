@@ -64,16 +64,18 @@ router.put(
             const url = req.protocol + "://" + req.get("host");
             imagePath = url + "/images/" + req.file.filename;
         }
+        console.log(req.userData.userId);
         const band = new Band({
             _id: req.body.id,
             name: req.body.name,
             imagePath: imagePath,
-            creator: req.userData.userId
+            info: req.body.info,
         });
         Band.updateOne(
             { _id: req.params.id, creator: req.userData.userId },
             band
         ).then(result => {
+            console.log(result);
             if (result.nModified > 0) {
                 res.status(200).json({ message: "Update succesful!" });
             } else {
@@ -105,7 +107,7 @@ router.get("", (req, res, next) => {
         });
 });
 
-router.get("genre", (req, res, next) => {
+/*router.get("genre", (req, res, next) => {
     let genres = [
         "Ambient",
         "Angry Metal",
@@ -176,7 +178,7 @@ router.get("genre", (req, res, next) => {
         "Vampiric Metal",
         "Viking Metal"
     ];
-});
+});*/
 
 /*Band.collection.find({}).forEach(function(err, doc) {
   console.log(doc, 'doc');

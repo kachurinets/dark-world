@@ -1,73 +1,76 @@
 body {
-  font-family: 'Open Sans', sans-serif;
-  background-image: linear-gradient(to right bottom, rgb(39, 37, 39), rgb(0, 0, 0)), linear-gradient(transparent, rgb(0, 0, 0) 70%);
-  color: #fff;
-  width: 100%;
+    font-family: "Open Sans", sans-serif;
+    background-image: linear-gradient(
+            to right bottom,
+            rgb(39, 37, 39),
+            rgb(0, 0, 0)
+    ),
+    linear-gradient(transparent, rgb(0, 0, 0) 70%);
+    color: #fff;
+    width: 100%;
 }
 
 app-root {
-  display: grid;
-  grid-template-areas:
-    "header header"
-    "article article"
-    "footer footer ";
-  grid-template-rows: 60px 5fr 70px;
-  grid-template-columns: 1fr 5fr;
-  grid-row-gap: 10px;
-  margin: 0;
-/*  height: 100vh;*/
-  min-height: 100vh;
+    display: grid;
+    grid-template-areas: "header header" "article article" "footer footer ";
+    grid-template-rows: 60px 5fr 70px;
+    grid-template-columns: 1fr 5fr;
+    grid-row-gap: 10px;
+    margin: 0;
+    /*  height: 100vh;*/
+    min-height: 100vh;
 }
+
 /* Stack the layout on small devices/viewports. */
 @media all and (max-width: 575px) {
-  app-root {
-    grid-template-areas:
-      "header"
-      "article"
-      "ads"
-      "nav"
-      "footer";
-    grid-template-rows: 60px 1fr 70px 1fr 70px;
-    grid-template-columns: 1fr;
-  }
+    app-root {
+        grid-template-areas: "header" "article" "ads" "nav" "footer";
+        grid-template-rows: 60px 1fr 70px 1fr 70px;
+        grid-template-columns: 1fr;
+    }
 }
 
 .ui.form .fields {
-  margin: 0;
+    margin: 0;
 }
 
 #header {
-  grid-area: header;
-}
-#pageFooter {
-  grid-area: footer;
-}
-#mainArticle {
-  grid-area: article;
-/*  overflow-y: scroll;*/
-  max-width: 1200px;
-  margin: 0 auto;
+    grid-area: header;
 }
 
+#pageFooter {
+    grid-area: footer;
+}
+
+#mainArticle {
+    grid-area: article;
+    /*  overflow-y: scroll;*/
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
 
 #mainNav {
-  grid-area: nav;
-
+    grid-area: nav;
 }
+
 #siteAds {
-  grid-area: ads;
+    grid-area: ads;
 }
 
-ul, ol {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+ul,
+ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-ol, ul {
-  list-style: none;
+ol,
+ul {
+    list-style: none;
 }
 
-body, html {
-  height: inherit;
+body,
+html {
+    height: inherit;
 }

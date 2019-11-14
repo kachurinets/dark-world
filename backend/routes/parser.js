@@ -97,7 +97,6 @@ router.get("/parse-band-json", async (req, res, next) => {
                 pastMembers: pastMembers,
                 discography: discography,
                 videography: videography,
-
             };
             allBands.push(band);
             let bandInfoJSON = JSON.stringify(allBands);

@@ -4,10 +4,10 @@ const router = express.Router();
 const Genre = require("../models/genre");
 const jwt = require("jsonwebtoken");
 
+
+
 router.post("/genre", (req, res, next) => {
-    console.log(req, 'req');
-    console.log(req.body);
-    console.log(req.body.name , 'test');
+    console.log(req, 'reqname');
     const genre = new Genre({
         name: req.body.name,
     });

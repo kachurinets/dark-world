@@ -1,27 +1,15 @@
 <!-- todo: refactor *ngIf, use else-->
-<a [routerLink]="[ '/admin/general-config']">general config</a>
-<div *ngIf="!isLoading" >
-  <form class="ui form" *ngIf="band || mode === 'create'" [formGroup]="form">
-    <div class="field">
-      <label>Название группы</label>
-      <input formControlName="name" type="text" name="name" placeholder="name">
+<div class="ui inverted segment">
+    <div class="ui inverted secondary pointing menu">
+        <a class="item"  routerLinkActive="active" [routerLink]="[ '/admin/general-config']">
+            Главные настройки
+        </a>
+        <a class="item" routerLinkActive="active" [routerLink]="[ '/admin/create']">
+            Создать группу
+        </a>
+        <a class="item" routerLinkActive="active">
+            Добавить контент
+        </a>
     </div>
-<!--    <div class="field">
-      <label>Еекст</label>
-      <input formControlName="info" type="text" name="info" placeholder="content">
-    </div>-->
-    <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
-      <img [src]="imagePreview" [alt]="form.value.name">
-    </div>
-    <div class="field">
-      <button class="ui button" (click)="filePicker.click()">Pick image</button>
-      <input type="file" #filePicker multiple="multiple" (change)="onImagePicked($event)">
-    </div>
-    <button class="ui button" type="submit" (click)="addBand()">Сохранить</button>
-  </form>
 </div>
-<button (click)="createParsedBand()">Bands parsed</button>
-
-<div *ngIf="isLoading" class="ui active centered inline loader ">
-</div>
-<ckeditor *ngIf="band" [editor]="Editor" [(ngModel)]="band.info"></ckeditor>
+<router-outlet></router-outlet>
