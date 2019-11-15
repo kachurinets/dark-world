@@ -153,7 +153,7 @@ router.get("/parse-image", async (req, res, next) => {
 });
 
 router.get("/save-band-schema", checkAuth, (req, res, next) => {
-    fs.readFile("src/assets/allBandInfo.json", "utf8", function (err, data) {
+    fs.readFile("backend/data/allBandInfo.json", "utf8", function (err, data) {
         if (err) throw err;
         let bandData = JSON.parse(data);
 

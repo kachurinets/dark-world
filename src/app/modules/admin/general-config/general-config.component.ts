@@ -21,7 +21,13 @@ export class GeneralConfigComponent implements OnInit {
     }
 
     addGenre() {
-        this.adminService.addGenre(this.genre);
+        const genreData = {name: this.genre}
+        this.adminService.addGenre(genreData).subscribe((resp) => {
+            console.log(resp);
+            this.genre = null;
+        }, error => {
+            console.log(error);
+        });;
     }
 
 

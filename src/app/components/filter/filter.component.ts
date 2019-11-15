@@ -12,22 +12,20 @@ export class FilterComponent implements OnInit, AfterViewChecked {
     contries;
     selectedOption;
     selectedCountry;
+    selectedGenre;
     sortOptions;
 
     constructor(private cdr: ChangeDetectorRef, private adminService: AdminService) {
     }
 
     ngAfterViewChecked() {
-        //your code to update the model
+        // your code to update the model
         this.cdr.detectChanges();
 
     }
 
     ngOnInit(): void {
-        this.options = [{name: 'test'}, {name: 'test1'}];
-        this.contries = [{name: 'Ukraine'}, {name: 'Moldova'}, {name: 'Russia'}];
         this.selectedOption = this.options[0];
-        this.selectedCountry = this.contries[0];
         this.sortOptions = [{name: 'по рейтингу'}, {name: 'по просмотрам'}];
         this.adminService.getGenres().subscribe((resp: any) => {
             this.contries = resp.genres;
@@ -35,11 +33,24 @@ export class FilterComponent implements OnInit, AfterViewChecked {
 
     }
 
-    optionsLookup = (query: string) => {
+    optionsGenres = (query: string) => {
         return new Promise((resolve, reject) => {
             this.adminService.getGenres().subscribe((res: any) => {
                 resolve(res.genres);
             });
         });
     }
+
+    optionsCountries = (query: string) => {
+        return new Promise((resolve, reject) => {
+            this.adminService.getCountries().subscribe((res: any) => {
+                var myData = Object.keys(res).map(key => {
+                    return res[key];
+                });
+                console.log(myData);
+                resolve(myData);
+            });
+        });
+    }
+
 }
