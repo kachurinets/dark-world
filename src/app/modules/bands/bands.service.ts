@@ -59,7 +59,6 @@ export class BandsService {
 
     const bandData = new FormData();
     for (const file of images) {
-        console.log(file , 'file');
       bandData.append('image', file);
     }
     bandData.append("name", name);
@@ -87,7 +86,6 @@ export class BandsService {
   }
 
   updateBand(id: string, name: string, image: File | string, info) {
-      console.log(info, 'info');
     let bandData: Band | FormData;
     if (typeof image === "object") {
       bandData = new FormData();

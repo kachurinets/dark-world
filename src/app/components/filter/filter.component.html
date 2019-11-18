@@ -1,66 +1,65 @@
 <div class="ui form filter">
-  <div class="field filter__field">
-    <label class="filter__label">Название</label>
-    <input type="text" placeholder="Название" />
-  </div>
-  <div class="field filter__field">
-    <label class="filter__label" for="">Стиль</label>
-    <sui-select
-      class="selection"
-      [(ngModel)]="selectedGenre"
-      labelField="name"
-      [isSearchable]="true"
-      [optionsLookup]="optionsGenres"
-      [isDisabled]="false"
-      #selectGenre
-    >
-      <sui-select-option
-        *ngFor="let genre of selectGenre.filteredOptions"
-        [value]="genre"
-      >
-      </sui-select-option>
-    </sui-select>
-  </div>
-  <div class="field filter__field">
-    <label class="filter__label" for="">Страна</label>
-    <sui-select
-      class="selection"
-      [(ngModel)]="selectedCountry"
-      [isSearchable]="true"
-      [optionsLookup]="optionsCountries"
-      [isDisabled]="false"
-      #selectCountry
-    >
-      <sui-select-option
-        *ngFor="let country of selectCountry.filteredOptions"
-        [value]="country.name"
-      >
-      </sui-select-option>
-    </sui-select>
-  </div>
-  <div class="field filter__field">
-    <label class="filter__label" for="">Сортировка</label>
-    <sui-select
-      class="selection"
-      [options]="sortOptions"
-      labelField="name"
-      [isSearchable]="false"
-      [isDisabled]="false"
-      #selectSort
-    >
-      <sui-select-option
-        *ngFor="let itemSort of selectSort.filteredOptions"
-        [value]="itemSort"
-      >
-      </sui-select-option>
-    </sui-select>
-  </div>
-  <div class="field filter__field">
-    <button class="ui black button">Поиск</button>
-  </div>
+    <div class="field filter__field">
+        <label class="filter__label">Название</label>
+        <input type="text" placeholder="Название"/>
+    </div>
+    <div class="field filter__field">
+        <label class="filter__label" for="">Стиль</label>
+        <sui-select
+                class="selection"
+                [(ngModel)]="selectedGenre"
+                [isSearchable]="true"
+                [optionsLookup]="optionsGenres"
+                [isDisabled]="false"
+                #selectGenre
+        >
+            <sui-select-option
+                    *ngFor="let genre of selectGenre.filteredOptions"
+                    [value]="genre.name"
+            >
+            </sui-select-option>
+        </sui-select>
+    </div>
+    <div class="field filter__field">
+        <label class="filter__label" for="">Страна</label>
+        <sui-select
+                class="selection"
+                [(ngModel)]="selectedCountry"
+                [isSearchable]="true"
+                [optionsLookup]="optionsCountries"
+                [isDisabled]="false"
+                #selectCountry
+        >
+            <sui-select-option
+                    *ngFor="let country of selectCountry.filteredOptions"
+                    [value]="country.name"
+            >
+            </sui-select-option>
+        </sui-select>
+    </div>
+    <div class="field filter__field">
+        <label class="filter__label" for="">Сортировка</label>
+        <sui-select
+                class="selection"
+                [options]="sortOptions"
+                labelField="name"
+                [isSearchable]="false"
+                [isDisabled]="false"
+                #selectSort
+        >
+            <sui-select-option
+                    *ngFor="let itemSort of selectSort.filteredOptions"
+                    [value]="itemSort"
+            >
+            </sui-select-option>
+        </sui-select>
+    </div>
+    <div class="field filter__field">
+        <button class="ui black button">Поиск</button>
+    </div>
 </div>
 <p>
-  Всего 9828 групп , найдено по запросу: 9828
-  <br />
+    Всего 9828 групп , найдено по запросу: 9828
+    <br/>
 </p>
-<br />
+<br/>

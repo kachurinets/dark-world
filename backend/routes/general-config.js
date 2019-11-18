@@ -3,8 +3,7 @@ const bcrypt = require("bcrypt");
 const router = express.Router();
 const Genre = require("../models/genre");
 const jwt = require("jsonwebtoken");
-
-
+const Band = require("../models/band");
 
 router.post("/genre", (req, res, next) => {
     console.log(req, 'reqname');
@@ -30,6 +29,14 @@ router.get('/genre', (req, res, next) => {
         res.status(200).json({
             message: 'Genres fetched successfully!',
             genres: documents
+        })
+    });
+});
+
+router.get('/delete-all-bands', (req, res, next) => {
+    Band.collection.drop().then(resp => {
+        res.status(200).json({
+            message: 'All bands all deleted!'
         })
     });
 });

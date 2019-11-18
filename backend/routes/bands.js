@@ -1,5 +1,5 @@
 const express = require("express");
-const Band = require("../models/band");
+
 const checkAuth = require("../middleware/check-auth");
 const multer = require("multer");
 
@@ -13,6 +13,8 @@ const MIME_TYPE_MAP = {
     "image/jpeg": "jpeg",
     "image/jpg": "jpg"
 };
+
+const BandController = require("../controllers/bands");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -35,179 +37,28 @@ const storage = multer.diskStorage({
     }
 });
 
-router.post("", checkAuth, multer({storage: storage}).single("image"), (req, res, next) => {
-    const url = req.protocol + '://' + req.get("host");
-    const band = new Band({
-        name: req.body.name,
-        info: req.body.info,
-        imagePath: url + "/images/" + req.file.filename,
-        creator: req.userData.userId,
-    });
-    band.save().then(createdBand => {
-        res.status(201).json({
-            message: 'Post added successfully',
-            band: {
-                ...createdBand,
-                id: createdBand._id
-            }
-        });
-    });
-});
+router.post("", checkAuth, multer({storage: storage}).single("image"), BandController.createBand);
 
 router.put(
     "/:id",
     checkAuth,
     multer({ storage: storage }).single("image"),
-    (req, res, next) => {
-        let imagePath = req.body.imagePath;
-        if (req.file) {
-            const url = req.protocol + "://" + req.get("host");
-            imagePath = url + "/images/" + req.file.filename;
-        }
-        console.log(req.userData.userId);
-        const band = new Band({
-            _id: req.body.id,
-            name: req.body.name,
-            imagePath: imagePath,
-            info: req.body.info,
-        });
-        Band.updateOne(
-            { _id: req.params.id, creator: req.userData.userId },
-            band
-        ).then(result => {
-            console.log(result);
-            if (result.nModified > 0) {
-                res.status(200).json({ message: "Update succesful!" });
-            } else {
-                res.status(401).json({ message: "Not authorized" });
-            }
-        });
-    }
+    BandController.updateBand
 );
 
-router.get("", (req, res, next) => {
-    const pageSize = +req.query.pagesize;
-    const currentPage = +req.query.page;
-    const bandQuery = Band.find();
-    let fetchedBands;
-    if (pageSize && currentPage) {
-        bandQuery.skip(pageSize * currentPage).limit(pageSize);
-    }
-    bandQuery
-        .then(documents => {
-            fetchedBands = documents;
-            return Band.countDocuments();
-        })
-        .then(count => {
-            res.status(200).json({
-                message: "Bands fetched successfully!",
-                bands: fetchedBands,
-                maxBands: count
-            });
-        });
-});
+router.get("", BandController.getBands);
 
-/*router.get("genre", (req, res, next) => {
-    let genres = [
-        "Ambient",
-        "Angry Metal",
-        "Atmospheric Black",
-        "Avant-garde Metal",
-        "Black Industrial",
-        "Black Metal",
-        "Brutal Death",
-        "Crust",
-        "Cybergrind",
-        "Dark Ambient",
-        "Dark Electro",
-        "Dark Folk",
-        "Dark Metal",
-        "Darkwave",
-        "Death Metal",
-        "Deathcore",
-        "Depressive Black",
-        "Doom Metal",
-        "Doom/Death Metal",
-        "Drone Doom",
-        "EBM",
-        "Epic Metal",
-        "Ethereal",
-        "Extreme Metal",
-        "Folk Metal",
-        "Folk Rock",
-        "Funeral Doom",
-        "Goregrind",
-        "Goth Industrial",
-        "Gothic Doom/Dark",
-        "Gothic Metal",
-        "Gothic Rock",
-        "Grindcore",
-        "Heavy Metal",
-        "Horror Metal",
-        "Industrial",
-        "Instrumental",
-        "Martial Industrial",
-        "Mathcore",
-        "Medieval",
-        "Melodic Black",
-        "Melodic Death",
-        "Melodic Metal",
-        "Neo-Classic",
-        "Neo-Classical Metal",
-        "Noise",
-        "NS Black Metal",
-        "Occult Rock",
-        "Pagan Metal",
-        "Porngrind",
-        "Post-Metal",
-        "Power Metal",
-        "Progressive Black",
-        "Progressive Death",
-        "Progressive Metal",
-        "Raw Black Metal",
-        "Shoegaze",
-        "Sludge Metal",
-        "Speed Metal",
-        "Stoner Metal",
-        "Sympho Black",
-        "Symphonic Metal",
-        "Technical Black",
-        "Technical Death",
-        "Thrash Metal",
-        "True Black Metal",
-        "Vampiric Metal",
-        "Viking Metal"
-    ];
-});*/
 
 /*Band.collection.find({}).forEach(function(err, doc) {
   console.log(doc, 'doc');
 });*/
 
-router.get("/:id", (req, res, next) => {
-    Band.findById(req.params.id).then(band => {
-        if (band) {
-            res.status(200).json(band);
-        } else {
-            res.status(404).json({ message: "Band not found!" });
-        }
-    });
-});
+router.get("/:id", BandController.getBand);
 
-router.delete("/:id", checkAuth, (req, res, next) => {
-    Band.deleteOne({ _id: req.params.id, creator: req.userData.userId }).then(
-        result => {
-            if (result.n > 0) {
-                res.status(200).json({ message: "Deletion succesful!" });
-            } else {
-                res.status(401).json({ message: "Not authorized" });
-            }
-        }
-    );
-});
+router.delete("/:id", checkAuth, BandController.deleteBand);
 
 //Удалить коллекцию
-/*Band.collection.drop();*/
+
 
 //добавить картинки к существующим группам
 router.post(
@@ -218,15 +69,12 @@ router.post(
         for await (let file of req.files) {
             console.log(file, 'file');
             const url = req.protocol + "://" + req.get("host");
-            Band.findOne({name: file.originalname.split('.').shift()})
-                .then(async band => {
-                    if (band) {
-                        band.imagePath = url + "/images/" + file.filename
-                        await band.save().then(createdBand => {
-                            console.log(createdBand + "was added!");
-                        });
-                    }
-                });
+            Band.findOneAndUpdate({name: file.originalname.split('.').shift()}, {$set: {imagePath: url + "/images/" + file.filename }}, {new: true}, (err, doc) => {
+                if (err) {
+                    console.log("Something wrong when updating data!");
+                }
+                console.log(doc);
+            });
         }
         res.status(201).json({
             message: "Post added successfully"

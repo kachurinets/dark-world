@@ -66,4 +66,10 @@ export class GeneralConfigComponent implements OnInit {
            console.log(resp);
         });
     }
+
+    deleteAllBands() {
+        this.http.get('http://localhost:3000/api/general-config/delete-all-bands').subscribe(resp => {
+            console.log(resp);
+        })
+    }
 }

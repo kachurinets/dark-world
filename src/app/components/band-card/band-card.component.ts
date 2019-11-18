@@ -16,12 +16,9 @@ export class BandCardComponent implements OnInit, OnChanges {
     private router: Router) {
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.bandCard);
   }
 
   ngOnInit(): void {
-/*    this.onDelete(this.bandCard.id);*/
-    console.log(this.bandCard);
   }
 
   onDelete(bandId: string) {

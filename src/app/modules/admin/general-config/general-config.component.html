@@ -19,10 +19,12 @@
         <input type="file" #filePicker multiple="multiple" (change)="fileChangeEvent($event)">
         <button class="ui button" type="submit" (click)="upload()">Сохранить</button>
     </div>
-    <button (click)="parseDataFromDarkWorld()">parseDataFromDarkWorld</button>
+    <button class="ui button" (click)="parseDataFromDarkWorld()">parseDataFromDarkWorld</button>
     <hr>
-    <button (click)="parseImageBand()">Parse image band</button>
+    <button class="ui button" (click)="parseImageBand()">Parse image band</button>
     <hr>
-    <button (click)="saveBandsToStorage()">saveBandsToStorage</button>
+    <button class="ui button" (click)="saveBandsToStorage()">saveBandsToStorage</button>
+    <hr>
+    <button class="ui button" (click)="deleteAllBands()">delete all bands</button>
 </form>
 <hr>

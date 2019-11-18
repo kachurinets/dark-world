@@ -156,6 +156,7 @@ router.get("/save-band-schema", checkAuth, (req, res, next) => {
     fs.readFile("backend/data/allBandInfo.json", "utf8", function (err, data) {
         if (err) throw err;
         let bandData = JSON.parse(data);
+        processArray(bandData);
 
         async function processArray(array) {
             for (const item of bandData) {
@@ -163,18 +164,21 @@ router.get("/save-band-schema", checkAuth, (req, res, next) => {
             }
         }
 
-        processArray(bandData);
+
 
         function saveSchemaData(el) {
             new Band({
+                serialNumber: el.serialNumber,
                 name: el.name,
                 info: el.info,
-                imagePath: "",
+                country: el.country,
                 genre: el.genre,
                 existence: el.existence,
-                country: el.country,
-                users: el.users,
-                albums: el.albums,
+                members: el.members,
+                pastMembers: el.pastMembers,
+                discography: el.discography,
+                videography: el.videography,
+                imagePath: "",
                 creator: req.userData.userId
             })
                 .save()
@@ -183,6 +187,7 @@ router.get("/save-band-schema", checkAuth, (req, res, next) => {
                 });
             console.log("saved");
         }
+        console.log('All Band was saved');
     });
 });
 

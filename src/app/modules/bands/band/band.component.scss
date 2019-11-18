@@ -7,6 +7,11 @@
     &__label {
         color: #fff;
     }
+    &__table {
+        td {
+            width: 50% !important;
+        }
+    }
     &__name {
         color: #fff;
         grid-column: 1/3;
