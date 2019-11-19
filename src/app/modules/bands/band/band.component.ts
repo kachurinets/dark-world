@@ -12,10 +12,11 @@ import { Band } from '../../../models/band.model';
     styleUrls: ['./band.component.scss']
 })
 export class BandComponent implements OnInit, OnDestroy {
-    bandCards = 10;
     galleryOptions: NgxGalleryOptions[];
     galleryImages: NgxGalleryImage[];
     band: Band;
+    isUnvisibleInfo: boolean;
+    messageButton: string;
     private routeSub: Subscription;
 
     constructor(
@@ -42,6 +43,7 @@ export class BandComponent implements OnInit, OnDestroy {
                     discography: resp.discography,
                     videography: resp.videography,
                 };
+                this.visibleInfo();
             });
         });
 
@@ -67,6 +69,26 @@ export class BandComponent implements OnInit, OnDestroy {
                 big: 'http://placehold.it/250x250/'
             }
         ];
+    }
+
+    showMoreInfo() {
+        this.isUnvisibleInfo = !this.isUnvisibleInfo;
+        if (this.isUnvisibleInfo) {
+            this.messageButton = 'Показать больше';
+        } else {
+            this.messageButton = 'Скрыть';
+
+        }
+    }
+
+    visibleInfo() {
+        if (this.band && this.band.info.length > 3000) {
+            this.isUnvisibleInfo = true;
+            this.messageButton = 'Показать больше';
+        } else {
+            this.isUnvisibleInfo = false;
+            this.messageButton = 'Скрыть';
+        }
     }
 
     ngOnDestroy() {

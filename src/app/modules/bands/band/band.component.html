@@ -1,148 +1,126 @@
 <div class="band">
-    <div class="band__col">
-        <div class="band__photo">
-            <img [src]="band?.imagePath" alt=""/>
-        </div>
-        <h4 class="band__label ui horizontal divider header">
-            <i class="info circle icon"></i>
-            Информация
-        </h4>
-        <table class=" band__table ui definition table">
-            <tbody>
-            <tr>
-                <td class="two wide column">Стиль:</td>
-                <td>{{ band?.genre }}</td>
-            </tr>
-            <tr>
-                <td>Страна:</td>
-                <td>{{ band?.country }}</td>
-            </tr>
-            <tr>
-                <td>Сущ.</td>
-                <td>{{ band?.existence }}</td>
-            </tr>
-            </tbody>
-        </table>
-        <h4 class="band__label ui horizontal divider header">
-            Состав группы
-        </h4>
-        <table class="band__table ui definition table">
-            <tbody>
-            <tr *ngFor="let member of band?.members">
-                <td class="two wide column">{{ member.instrument }}</td>
-                <td>{{ member.name }}</td>
-            </tr>
-            </tbody>
-        </table>
-        <h4 class="band__label ui horizontal divider header">
-            Бывшие участники
-        </h4>
-        <table class="band__table ui definition table">
-            <tbody>
-            <tr *ngFor="let member of band?.pastMembers">
-                <td class="two wide column">{{ member.instrument }}</td>
-                <td>
-                    {{ member.name }}
-                </td>
-            </tr>
-            </tbody>
-        </table>
+  <div class="band__col">
+    <div class="band__photo">
+      <img [src]="band?.imagePath" alt="" />
     </div>
-    <div class="band__col">
-        <div class="band-info">
-            <div class="band-info__title">{{ band?.name }}</div>
-            <div
-                    class="band-info__text"
-                    [innerHTML]="
-          band?.info.length > 3000
-            ? (band?.info | slice: 0:3000) + '...'
-            : band?.info
-        "
-            ></div>
-        </div>
+    <h4 class="band__label ui horizontal divider header">
+      <i class="info circle icon"></i>
+      Информация
+    </h4>
+    <table class="band__table ui definition table">
+      <tbody>
+        <tr>
+          <td class="two wide column">Стиль:</td>
+          <td>{{ band?.genre }}</td>
+        </tr>
+        <tr>
+          <td>Страна:</td>
+          <td>{{ band?.country }}</td>
+        </tr>
+        <tr>
+          <td>Сущ.</td>
+          <td>{{ band?.existence }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4 class="band__label ui horizontal divider header">
+      Состав группы
+    </h4>
+    <table class="band__table ui definition table">
+      <tbody>
+        <tr *ngFor="let member of band?.members">
+          <td class="two wide column">{{ member.instrument }}</td>
+          <td>{{ member.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4 class="band__label ui horizontal divider header">
+      Бывшие участники
+    </h4>
+    <table class="band__table ui definition table">
+      <tbody>
+        <tr *ngFor="let member of band?.pastMembers">
+          <td class="two wide column">{{ member.instrument }}</td>
+          <td>
+            {{ member.name }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="band__col">
+    <div class="band-info">
+      <div class="band-info__title">{{ band?.name }}</div>
+      <div
+        class="band-info__text"
+        [innerHTML]="isUnvisibleInfo ? (band?.info | slice: 0:3000) + '...' : band?.info"
+      ></div>
+      <button
+        *ngIf="band?.info.length > 3000"
+        class="band-info__btn ui button"
+        (click)="showMoreInfo()"
+      >
+        {{messageButton}}
+      </button>
     </div>
-    <div class="band-wrap">
-        <div class="band-wrap__col">
-            <h4 class="ui horizontal divider header">
-                Дискография (всего 22 альбома)
-            </h4>
-            <div class="ui list">
-                <div class="item">
-                    (2015) Thulean Mysteries (Single)
-                </div>
-                <div class="item">
-                    (2015) Thulean Mysteries (Single)
-                </div>
-                <div class="item">
-                    (2015) Thulean Mysteries (Single)
-                </div>
-                <div class="item">
-                    (2015) Thulean Mysteries (Single)
-                </div>
-                <div class="item">
-                    (2015) Thulean Mysteries (Single)
-                </div>
-                <div class="item">
-                    (2015) Thulean Mysteries (Single)
-                </div>
-            </div>
-        </div>
-        <div class="band-wrap__col">
-            <div class="ui medium header">Контакты</div>
-            <div class="ui list">
-                <div class="item">
-                    <i class="users icon"></i>
-                    <div class="content">
-                        {{ band?.name }}
-                    </div>
-                </div>
-                <div class="item">
-                    <i class="marker icon"></i>
-                    <div class="content">
-                        New York, NY
-                    </div>
-                </div>
-                <div class="item">
-                    <i class="mail icon"></i>
-                    <div class="content">
-                        <a href="mailto:jack@semantic-ui.com">varg-vikernes@gmail.com</a>
-                    </div>
-                </div>
-                <div class="item">
-                    <i class="linkify icon"></i>
-                    <div class="content">
-                        <a href="http://www.burzum.org/">http://www.burzum.org/</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
-
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<sui-tabset>
-  <div class="ui secondary menu">
+<sui-tabset class="band-tabset" *ngIf="band">
+  <div class="band-tabset__menu ui secondary menu">
     <a class="item" suiTabHeader="1">Дискография</a>
-    <a class="item" suiTabHeader="2">Веб-сайты</a>
-    <a class="item" suiTabHeader="3">Видеография</a>
+    <a class="item" suiTabHeader="2">Видеография</a>
+    <a class="item" suiTabHeader="3">Галерея</a>
+
+    <a class="item" suiTabHeader="4">Контакты</a>
   </div>
-  <div class="ui segment" suiTabContent="1">
-    <sui-tabset>
-      <div class="ui pointing secondary menu">
-        <a class="item" suiTabHeader="1">Nested 1</a>
-        <a class="item" suiTabHeader="2">Nested 2</a>
+  <div class="band-tabset__content ui segment" suiTabContent="1">
+    <div class="band-tabset__list ui list">
+      <div class="item" *ngFor="let album of band.discography">
+        {{ album.name }} - {{ album.year }}
       </div>
-      <div class="ui segment" suiTabContent="1">First nested tab!</div>
-      <div class="ui segment" suiTabContent="2">Second nested tab!</div>
-    </sui-tabset>
+    </div>
   </div>
-  <div class="ui segment" suiTabContent="2">Second tab!</div>
-  <div class="ui segment" suiTabContent="3">Third tab!</div>
+  <div class="band-tabset__content ui segment" suiTabContent="2">
+    <div class="band-tabset__list ui list">
+      <div class="item" *ngFor="let video of band.videography">
+        {{ video.name }} - {{ video.year }}
+      </div>
+    </div>
+  </div>
+  <div class="band-tabset__content ui segment" suiTabContent="3">
+    <ngx-gallery
+      [options]="galleryOptions"
+      [images]="galleryImages"
+    ></ngx-gallery>
+  </div>
+  <div class="band-tabset__content ui segment" suiTabContent="4">
+    <div class="band-tabset__list ui list">
+      <div class="item">
+        <i class="users icon"></i>
+        <div class="content">
+          {{ band?.name }}
+        </div>
+      </div>
+      <div class="item">
+        <i class="marker icon"></i>
+        <div class="content">
+          New York, NY
+        </div>
+      </div>
+      <div class="item">
+        <i class="mail icon"></i>
+        <div class="content">
+          <a href="mailto:jack@semantic-ui.com">varg-vikernes@gmail.com</a>
+        </div>
+      </div>
+      <div class="item">
+        <i class="linkify icon"></i>
+        <div class="content">
+          <a href="http://www.burzum.org/">http://www.burzum.org/</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </sui-tabset>
-<ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
-<app-comments></app-comments>
+
+<!--<app-comments></app-comments>-->
