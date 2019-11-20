@@ -15,7 +15,7 @@
 <!--  <div *ngIf="userIsAuthenticated && userId === band.creator">
     Пользователь авторизирован и имеет права на редактирования
   </div>-->
-  <app-filter class="filter"></app-filter>
+  <app-filter class="filter" (searchQuery)="findBand($event)"></app-filter>
 </div>
 
 <div *ngIf="bandsCount">

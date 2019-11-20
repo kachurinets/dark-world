@@ -15,14 +15,16 @@ export class BandsService {
   private bands: any = [];
   private bandsUpdated = new Subject();
 
-  getBands(bandsPerPage: number, currentPage: number) {
-    const queryParams = `?pagesize=${bandsPerPage}&page=${currentPage}`;
+  getBands(bandsPerPage: number, currentPage: number, nameBand =null) {
+      const bandNameQuery = nameBand ? nameBand : '';
+    const queryParams = `?pagesize=${bandsPerPage}&page=${currentPage}&name=${bandNameQuery}`;
     this.http
       .get<{ message: string; bands: any; maxBands: number }>(
         "http://localhost:3000/api/bands" + queryParams
       )
       .pipe(
         map(bandData => {
+            console.log(bandData, 'bandData')
           return {
             bands: bandData.bands.map(band => {
               return {

@@ -51,23 +51,34 @@ exports.updateBand =  (req, res, next) => {
 exports.getBands = (req, res, next) => {
     const pageSize = +req.query.pagesize;
     const currentPage = +req.query.page;
-    const bandQuery = Band.find();
-    let fetchedBands;
-    if (pageSize && currentPage) {
-        bandQuery.skip(pageSize * currentPage).limit(pageSize);
-    }
-    bandQuery
-        .then(documents => {
+    const bandName = req.query.name;
+    if (bandName) {
+        Band.findOne({'name': bandName}).then(documents => {
             fetchedBands = documents;
-            return Band.countDocuments();
-        })
-        .then(count => {
             res.status(200).json({
-                message: "Bands fetched successfully!",
+                message: "Band fetched successfully!",
                 bands: fetchedBands,
-                maxBands: count
             });
-        });
+        })
+    } else {
+        const bandQuery = Band.find();
+        let fetchedBands;
+        if (pageSize && currentPage) {
+            bandQuery.skip(pageSize * currentPage).limit(pageSize);
+        }
+        bandQuery
+            .then(documents => {
+                fetchedBands = documents;
+                return Band.countDocuments();
+            })
+            .then(count => {
+                res.status(200).json({
+                    message: "Bands fetched successfully!",
+                    bands: fetchedBands,
+                    maxBands: count
+                });
+            });
+    }
 }
 
 exports.getBand = (req, res, next) => {

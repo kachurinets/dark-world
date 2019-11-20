@@ -71,4 +71,8 @@ export class BandsComponent implements OnInit, OnDestroy {
     this.currentPage = currentPage - 1;
     this.bandsService.getBands(this.bandsPerPage, this.currentPage);
   }
+
+  findBand(query) {
+      this.bandsService.getBands(this.bandsPerPage, this.currentPage, query.name)
+  }
 }

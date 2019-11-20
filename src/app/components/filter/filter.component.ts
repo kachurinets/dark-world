@@ -1,11 +1,12 @@
 import {
     AfterViewChecked,
     ChangeDetectorRef,
-    Component,
-    OnInit
+    Component, EventEmitter,
+    OnInit, Output
 } from '@angular/core';
 
 import { AdminService } from '../../modules/admin/admin.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-filter',
@@ -13,9 +14,11 @@ import { AdminService } from '../../modules/admin/admin.service';
     styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit, AfterViewChecked {
+    public form: FormGroup;
     selectedCountry;
     selectedGenre;
     sortOptions;
+    @Output() searchQuery = new EventEmitter<any>();
 
     constructor(
         private cdr: ChangeDetectorRef,
@@ -29,6 +32,14 @@ export class FilterComponent implements OnInit, AfterViewChecked {
 
     ngOnInit(): void {
         this.sortOptions = [{name: 'по рейтингу'}, {name: 'по просмотрам'}];
+        this.form = new FormGroup({
+            name: new FormControl(null, {
+                validators: [Validators.required, Validators.minLength(2)]
+            }),
+            genre: new FormControl(null),
+            country: new FormControl(null),
+            sort: new FormControl(null)
+        });
     }
 
     optionsGenres = (query: string) => {
@@ -48,5 +59,11 @@ export class FilterComponent implements OnInit, AfterViewChecked {
                 resolve(countries);
             });
         });
+    }
+
+    submit() {
+
+        console.log(this.form.value, 'form');
+        this.searchQuery.emit(this.form.value);
     }
 }

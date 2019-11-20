@@ -1,13 +1,13 @@
-<div class="ui form filter">
+<form class="ui form filter" [formGroup]="form">
     <div class="field filter__field">
         <label class="filter__label">Название</label>
-        <input type="text" placeholder="Название"/>
+        <input formControlName="name" type="text" placeholder="Название"/>
     </div>
     <div class="field filter__field">
         <label class="filter__label" for="">Стиль</label>
         <sui-select
                 class="selection"
-                [(ngModel)]="selectedGenre"
+                formControlName="genre"
                 [isSearchable]="true"
                 [optionsLookup]="optionsGenres"
                 [isDisabled]="false"
@@ -24,10 +24,10 @@
         <label class="filter__label" for="">Страна</label>
         <sui-select
                 class="selection"
-                [(ngModel)]="selectedCountry"
                 [isSearchable]="true"
                 [optionsLookup]="optionsCountries"
                 [isDisabled]="false"
+                formControlName="country"
                 #selectCountry
         >
             <sui-select-option
@@ -45,6 +45,7 @@
                 labelField="name"
                 [isSearchable]="false"
                 [isDisabled]="false"
+                formControlName="sort"
                 #selectSort
         >
             <sui-select-option
@@ -55,9 +56,9 @@
         </sui-select>
     </div>
     <div class="field filter__field">
-        <button class="ui black button">Поиск</button>
+        <button (click)="submit()" class="ui black button">Поиск</button>
     </div>
-</div>
+</form>
 <p>
     Всего 9828 групп , найдено по запросу: 9828
     <br/>
