@@ -55,12 +55,13 @@
             </sui-select-option>
         </sui-select>
     </div>
-    <div class="field filter__field">
+    <div class="field filter__field_btns">
         <button (click)="submit()" class="ui black button">Поиск</button>
+        <button (click)="reset()" class="ui black button">Сбросить</button>
     </div>
 </form>
 <p>
-    Всего 9828 групп , найдено по запросу: 9828
+    Всего {{bandsAmount}} групп , найдено по запросу: 9828
     <br/>
 </p>
 <br/>

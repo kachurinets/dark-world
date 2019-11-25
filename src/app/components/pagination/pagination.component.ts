@@ -11,7 +11,7 @@ export class PaginationComponent implements OnInit, OnChanges {
   @Output() pageChange = new EventEmitter();
   @Input() bandsCount;
   @Input() bandsPerPage;
-
+selectedPage;
   bands;
   options;
   selectedOption;
@@ -27,7 +27,6 @@ export class PaginationComponent implements OnInit, OnChanges {
 
   changeBandsSize(event) {
     const size = event.number;
-    console.log(size);
     this.sizeBandsChange.emit(size);
   }
 

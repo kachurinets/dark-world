@@ -15,6 +15,9 @@
     <sui-pagination   [maxSize]="3"
                      (pageChange)="onChangePage($event)"
                      [collectionSize]="bandsCount"
-                     [pageSize]="bandsPerPage">
+                      [hasEllipses]="true"
+                      [canRotate]="true"
+                      [(page)]="selectedPage"
+                      [pageSize]="bandsPerPage">
     </sui-pagination>
 </div>

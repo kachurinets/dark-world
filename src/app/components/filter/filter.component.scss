@@ -2,4 +2,10 @@
   &__label {
     color: #b3b3b3 !important;
   }
+    &__field {
+        &_btns {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
 }

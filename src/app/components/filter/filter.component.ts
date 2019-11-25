@@ -1,8 +1,8 @@
 import {
     AfterViewChecked,
     ChangeDetectorRef,
-    Component, EventEmitter,
-    OnInit, Output
+    Component, EventEmitter, Input, OnChanges,
+    OnInit, Output, SimpleChanges
 } from '@angular/core';
 
 import { AdminService } from '../../modules/admin/admin.service';
@@ -13,12 +13,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
     templateUrl: './filter.component.html',
     styleUrls: ['./filter.component.scss']
 })
-export class FilterComponent implements OnInit, AfterViewChecked {
+export class FilterComponent implements OnInit, AfterViewChecked, OnChanges {
     public form: FormGroup;
-    selectedCountry;
-    selectedGenre;
     sortOptions;
     @Output() searchQuery = new EventEmitter<any>();
+    @Output() resetFilter = new EventEmitter<boolean>();
+    @Input() bandsAmount;
 
     constructor(
         private cdr: ChangeDetectorRef,
@@ -30,7 +30,11 @@ export class FilterComponent implements OnInit, AfterViewChecked {
         this.cdr.detectChanges();
     }
 
+    ngOnChanges(changes: SimpleChanges): void {
+    }
+
     ngOnInit(): void {
+        console.log(this.bandsAmount);
         this.sortOptions = [{name: 'по рейтингу'}, {name: 'по просмотрам'}];
         this.form = new FormGroup({
             name: new FormControl(null, {
@@ -42,10 +46,19 @@ export class FilterComponent implements OnInit, AfterViewChecked {
         });
     }
 
-    optionsGenres = (query: string) => {
+    optionsGenres = (query: string, initial?) => {
         return new Promise((resolve, reject) => {
             this.adminService.getGenres().subscribe((res: any) => {
-                resolve(res.genres);
+                if(query.length > 1) {
+                    const genres = res.genres.filter((el) => {
+                        if( el.name.includes(query) ) {
+                            return el;
+                        }
+                    });
+                    resolve(genres);
+                } else {
+                    resolve(res.genres);
+                }
             });
         });
     }
@@ -53,17 +66,32 @@ export class FilterComponent implements OnInit, AfterViewChecked {
     optionsCountries = (query: string) => {
         return new Promise((resolve, reject) => {
             this.adminService.getCountries().subscribe((res: any) => {
-                const countries = Object.keys(res).map(key => {
-                    return res[key];
-                });
-                resolve(countries);
+                if (query.length > 1) {
+                    const keys = Object.keys(res).filter(key => {
+                        if (res[key].name.includes(query)) {
+                            return key;
+                        }
+                    });
+                    const countries = keys.map(key => {
+                        return res[key];
+                    });
+                    resolve(countries);
+                } else {
+                    const countries = Object.keys(res).map(key => {
+                        return res[key];
+                    });
+                    resolve(countries);
+                }
             });
         });
     }
 
     submit() {
-
         console.log(this.form.value, 'form');
         this.searchQuery.emit(this.form.value);
+    }
+
+    reset() {
+        this.resetFilter.emit(true);
     }
 }
