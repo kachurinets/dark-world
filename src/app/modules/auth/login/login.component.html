@@ -1,21 +1,44 @@
-<form *ngIf="!isLoading" class="ui form" (submit)="onLogin(loginForm)" #loginForm="ngForm">
-  <div class="field">
-    <label>Login</label>
-    <input type="email" name="email" ngModel #emailInput="ngModel" placeholder="Login" required email>
+<form
+  *ngIf="!isLoading"
+  class="ui form auth-form"
+  (submit)="onLogin(loginForm)"
+  #loginForm="ngForm"
+>
+  <div class="auth-form__field field">
+    <label class="auth-form__label">Login</label>
+    <input
+      type="email"
+      name="email"
+      ngModel
+      #emailInput="ngModel"
+      placeholder="Login"
+      required
+      email
+    />
     <div *ngIf="emailInput.invalid">Введите коректный email</div>
   </div>
-  <div class="field">
-    <label>Password</label>
-    <input type="password" name ="password" ngModel #passwordInput="ngModel" placeholder="Password" required>
+  <div class="auth-form__field field">
+    <label class="auth-form__label">Password</label>
+    <input
+      type="password"
+      name="password"
+      ngModel
+      #passwordInput="ngModel"
+      placeholder="Password"
+      required
+    />
     <div *ngIf="passwordInput.invalid">Введите коректный пароль</div>
   </div>
-  <div class="field">
+  <div class="auth-form__field field">
     <div class="ui checkbox">
-      <input type="checkbox" tabindex="0" class="hidden">
-      <label>I agree to the Terms and Conditions</label>
+      <input type="checkbox" tabindex="0" class="hidden" />
+      <label class="auth-form__label"
+        >I agree to the Terms and Conditions</label
+      >
     </div>
   </div>
-  <button class="ui button" type="submit">Login</button>
+  <div class="auth-form__field field">
+    <button class="ui button" type="submit">Login</button>
+  </div>
 </form>
-<div *ngIf="isLoading" class="ui active centered inline loader ">
-</div>
+<div *ngIf="isLoading" class="ui active centered inline loader "></div>

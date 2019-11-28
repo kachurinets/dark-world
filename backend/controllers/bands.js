@@ -53,15 +53,17 @@ exports.getBands = (req, res, next) => {
   const bandGenre = req.query.genre;
   const bandCountry = req.query.country;
   const filter = {};
+
   if (bandName) {
-      filter.name = { $regex: new RegExp(bandName, "i") }
+      filter.name = { $regex: new RegExp(bandName, "i") };
   }
   if (bandCountry) {
       filter.country = bandCountry;
   }
   if (bandGenre) {
-      filter.genre = bandGenre;
+      filter.genre = { $regex: new RegExp(bandGenre, "i")};
   }
+
   const bandQuery = Band.find(filter);
   let fetchedBands;
   if (pageSize && currentPage) {
@@ -70,7 +72,7 @@ exports.getBands = (req, res, next) => {
   bandQuery
     .then(documents => {
       fetchedBands = documents;
-      return Band.countDocuments();
+      return Band.count(filter).exec();
     })
     .then(count => {
       res.status(200).json({

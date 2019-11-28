@@ -1,4 +1,5 @@
-<div class="band">
+<div *ngIf="isLoading" class="ui active centered inline loader "></div>
+<div *ngIf="!isLoading" class="band">
   <div class="band__col">
     <div class="band__photo">
       <img [src]="band?.imagePath" alt="" />

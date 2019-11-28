@@ -17,6 +17,7 @@ export class BandComponent implements OnInit, OnDestroy {
     band: Band;
     isUnvisibleInfo: boolean;
     messageButton: string;
+    isLoading: boolean;
     private routeSub: Subscription;
 
     constructor(
@@ -27,6 +28,7 @@ export class BandComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
+            this.isLoading = true;
             this.bandsService.getBand(params['id']).subscribe(resp => {
                 console.log(resp, 'response');
                 this.band = {
@@ -44,6 +46,7 @@ export class BandComponent implements OnInit, OnDestroy {
                     videography: resp.videography,
                 };
                 this.visibleInfo();
+                this.isLoading = false;
             });
         });
 

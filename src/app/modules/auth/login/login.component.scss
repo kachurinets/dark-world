@@ -1,4 +1,14 @@
-
-label {
-    color: #fff !important;
+.auth-form {
+    &__field {
+        width: 300px;
+    }
+}
+//library style
+.ui.form {
+    label {
+        color: #fff;
+    }
+    .field {
+        margin: 0 auto 20px auto;
+    }
 }
