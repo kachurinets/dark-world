@@ -8,8 +8,9 @@ const generalConfigRoutes = require('./routes/general-config')
 const parser = require('./routes/parser');
 const app = express();
 
+console.log(process.env.MONGO_ATLAS_PW, 'test');
 
-mongoose.connect("mongodb+srv://Dima:xj5vRWkqL2obNQqY@cluster0-yezzc.mongodb.net/node-angular?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://Dima:"+ process.env.MONGO_ATLAS_PW + "@cluster0-yezzc.mongodb.net/node-angular?retryWrites=true&w=majority", {
   useUnifiedTopology: true,
   useNewUrlParser: true,
 })

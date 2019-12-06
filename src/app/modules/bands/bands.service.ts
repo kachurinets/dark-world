@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 import { Band } from '../../models/band.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -23,7 +24,7 @@ export class BandsService {
         const queryParams = `?pagesize=${bandsPerPage}&page=${currentPage}&name=${bandNameQuery}&country=${bandCountryQuery}&genre=${bandGenreQuery}`;
         this.http
             .get<{ message: string; bands: any; maxBands: number }>(
-                'http://localhost:3000/api/bands' + queryParams
+                `${environment.apiUrl}bands` + queryParams
             )
             .pipe(
                 map(bandData => {
@@ -68,7 +69,7 @@ export class BandsService {
         bandData.append('info', info);
 
         this.http
-            .post('http://localhost:3000/api/bands', bandData)
+            .post(`${environment.apiUrl}bands`, bandData)
             .subscribe((resp: any) => {
                 this.router.navigate(['/']);
             });
@@ -76,7 +77,7 @@ export class BandsService {
 
     deletePost(bandId: string) {
         this.http
-            .delete('http://localhost:3000/api/bands/' + bandId)
+            .delete(`${environment.apiUrl}bands/` + bandId)
             .subscribe(() => {
                 this.bands = this.bands.filter(band => band.id !== bandId);
             });
@@ -84,7 +85,7 @@ export class BandsService {
 
     // todo: Заменить тип any
     getBand(id: string) {
-        return this.http.get<any>('http://localhost:3000/api/bands/' + id);
+        return this.http.get<any>(`${environment.apiUrl}bands/` + id);
     }
 
     updateBand(id: string, name: string, image: File | string, info) {
@@ -105,7 +106,7 @@ export class BandsService {
             };
         }
         this.http
-            .put('http://localhost:3000/api/bands/' + id, bandData)
+            .put(`${environment.apiUrl}bands/` + id, bandData)
             .subscribe(response => {
                 this.router.navigate(['/']);
             });
