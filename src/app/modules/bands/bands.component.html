@@ -1,37 +1,37 @@
 <div *ngIf="isLoading" class="ui active centered inline loader "></div>
 <div class="container" *ngIf="!isLoading">
-  <!-- <div class="title">This is Bands page</div>-->
-  <div class="bands-wrap" *ngIf="bands.length > 0">
-    <app-band-card
-      [bandCard]="band"
-      *ngFor="let band of bands"
-      (click)="navigateToPage($event, band.id)"
-      class="band-card"
-    >
-    </app-band-card>
-  </div>
-  <div *ngIf="bands.length === 0">
-    Группы не найдено
-  </div>
-  <!--
-  нужно добавить на кнопки редактирования
--->
-  <!--  <div *ngIf="userIsAuthenticated && userId === band.creator">
-    Пользователь авторизирован и имеет права на редактирования
-  </div>-->
-  <app-filter
-    class="filter"
-    [bandsAmount]="bandsAmount"
-    (searchQuery)="findBand($event)"
-    (resetFilter)="resetSearchQuery($event)"
-  ></app-filter>
+    <!-- <div class="title">This is Bands page</div>-->
+    <div class="bands-wrap" *ngIf="bands.length > 0">
+        <app-band-card
+                [bandCard]="band"
+                *ngFor="let band of bands"
+                (click)="navigateToPage($event, band.id)"
+                class="band-card"
+        >
+        </app-band-card>
+    </div>
+    <div *ngIf="bands.length === 0">
+        Группы не найдено
+    </div>
+    <!--
+    нужно добавить на кнопки редактирования
+    -->
+    <!--  <div *ngIf="userIsAuthenticated && userId === band.creator">
+      Пользователь авторизирован и имеет права на редактирования
+    </div>-->
+    <app-filter
+            class="filter"
+            [bandsAmount]="bandsAmount"
+            (searchQuery)="findBand($event)"
+            (resetFilter)="resetSearchQuery($event)"
+    ></app-filter>
 </div>
 
-<div *ngIf="bandsCount && bands.length > 0">
-  <app-pagination
-    [bandsCount]="bandsCount"
-    (sizeBandsChange)="changeSize($event)"
-    (pageChange)="onChangePage($event)"
-    [bandsPerPage]="bandsPerPage"
-  ></app-pagination>
+<div *ngIf="bandsAmount && bands.length > 0">
+    <app-pagination
+            [bandsCount]="bandsAmount"
+            (sizeBandsChange)="changeSize($event)"
+            (pageChange)="onChangePage($event)"
+            [bandsPerPage]="bandsPerPage"
+    ></app-pagination>
 </div>

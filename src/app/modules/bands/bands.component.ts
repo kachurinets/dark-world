@@ -14,9 +14,8 @@ import { AuthService } from "../auth/auth.service";
 export class BandsComponent implements OnInit, OnDestroy {
   bands;
   isLoading = false;
-  bandsPerPage = 12;
+  bandsPerPage = 20;
   currentPage;
-  bandsCount;
   userIsAuthenticated = false;
   userId: string;
   bandsAmount;
@@ -38,8 +37,6 @@ export class BandsComponent implements OnInit, OnDestroy {
       .subscribe((resp: any) => {
         this.bands = resp.bands;
         this.bandsAmount = resp.bandCount;
-        console.log(this.bandsAmount, 'amount')
-        this.bandsCount = resp.bandCount - 1;
         this.isLoading = false;
       });
     this.userIsAuthenticated = this.authService.getIsAuth();
@@ -57,29 +54,30 @@ export class BandsComponent implements OnInit, OnDestroy {
     }
   }
 
-  changeSize(event) {
-    this.bandsService.getBands(+event, this.currentPage);
+  changeSize(size) {
+    this.isLoading = true;
+    this.bandsService.getBands(+size, 1);
   }
 
-  ngOnDestroy(): void {
-    this.bandsSub.unsubscribe();
-    this.authStatusSub.unsubscribe();
-  }
-
-  onChangePage(event) {
+  onChangePage(event): void {
     this.isLoading = true;
     const currentPage = event;
     this.currentPage = currentPage - 1;
     this.bandsService.getBands(this.bandsPerPage, this.currentPage);
   }
 
-  findBand(query) {
+  findBand(query): void {
     this.bandsService.getBands(this.bandsPerPage, null, query);
   }
+
   resetSearchQuery(isRemovedQuery) {
-    if(isRemovedQuery) {
-        this.isLoading = true;
-        this.bandsService.getBands(this.bandsPerPage, 1);
+    if (isRemovedQuery) {
+      this.isLoading = true;
+      this.bandsService.getBands(this.bandsPerPage, 1);
     }
+  }
+  ngOnDestroy(): void {
+    this.bandsSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
   }
 }

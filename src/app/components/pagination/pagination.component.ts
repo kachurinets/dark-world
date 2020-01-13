@@ -17,7 +17,7 @@ selectedPage;
   selectedOption;
 
   ngOnInit(): void {
-    this.options = [{number: '1'}, {number: '10'}];
+    this.options = [{number: '20'}, {number: '40'}];
     this.selectedOption =  this.options[0];
   }
 

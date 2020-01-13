@@ -13,6 +13,7 @@ import { environment } from '../../../environments/environment';
 export class BandsService {
     private bands: any = [];
     private bandsUpdated = new Subject();
+    private bandCount;
 
     constructor(private http: HttpClient, private router: Router) {
     }
@@ -49,9 +50,10 @@ export class BandsService {
             )
             .subscribe(transformedBandData => {
                 this.bands = transformedBandData.bands;
+                this.bandCount = transformedBandData.maxBands;
                 this.bandsUpdated.next({
                     bands: [...this.bands],
-                    bandCount: transformedBandData.maxBands
+                    bandCount: this.bandCount
                 });
             });
     }
@@ -80,6 +82,10 @@ export class BandsService {
             .delete(`${environment.apiUrl}bands/` + bandId)
             .subscribe(() => {
                 this.bands = this.bands.filter(band => band.id !== bandId);
+                this.bandsUpdated.next({
+                    bands: [...this.bands],
+                    bandCount: this.bandCount - 1
+                });
             });
     }
 
